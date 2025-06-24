@@ -121,4 +121,3 @@ export function Navbar({ user, onSignOut }: NavbarProps) {
     </nav>
   );
 }
- 

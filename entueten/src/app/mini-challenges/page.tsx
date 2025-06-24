@@ -64,14 +64,17 @@ export default function MiniChallengesPage() {
         setError('Fehler beim Laden des Fortschritts.');
       } else {
         setUserChallenges(
-          (data || []).map((item: any) => ({
-            id: item.id,
-            challengeId: parseInt(item.challenge_id, 10),
-            completed: item.completed,
-            completedAt: item.completed_at,
-            proofText: item.proof_text,
-            proofPhoto: item.proof_photo,
-          }))
+          (data || []).map((item: unknown) => {
+            const i = item as any;
+            return {
+              id: i.id,
+              challengeId: parseInt(i.challenge_id, 10),
+              completed: i.completed,
+              completedAt: i.completed_at,
+              proofText: i.proof_text,
+              proofPhoto: i.proof_photo,
+            };
+          }),
         );
       }
       setLoading(false);
@@ -91,13 +94,16 @@ export default function MiniChallengesPage() {
     if (proofImage) {
       const fileExt = proofImage.name.split('.').pop();
       const fileName = `${user.id}_${challengeId}_${Date.now()}.${fileExt}`;
-      const { data: uploadData, error: uploadError } = await supabase.storage.from('challenge-proofs').upload(fileName, proofImage);
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('challenge-proofs')
+        .upload(fileName, proofImage);
       if (uploadError) {
         setError('Fehler beim Hochladen des Bildes.');
         setLoading(false);
         return;
       }
-      uploadedImageUrl = supabase.storage.from('challenge-proofs').getPublicUrl(fileName).data.publicUrl;
+      uploadedImageUrl = supabase.storage.from('challenge-proofs').getPublicUrl(fileName)
+        .data.publicUrl;
     }
     // Check if already exists
     const existing = userChallenges.find((uc) => uc.challengeId === challengeId);
@@ -105,7 +111,12 @@ export default function MiniChallengesPage() {
     if (existing) {
       result = await supabase
         .from('mini_challenge_progress')
-        .update({ completed: true, completed_at: new Date().toISOString(), proof_text: proofText, proof_photo: uploadedImageUrl })
+        .update({
+          completed: true,
+          completed_at: new Date().toISOString(),
+          proof_text: proofText,
+          proof_photo: uploadedImageUrl,
+        })
         .eq('id', existing.id)
         .eq('user_id', user.id)
         .select();
@@ -131,14 +142,17 @@ export default function MiniChallengesPage() {
         .select('*')
         .eq('user_id', user.id);
       setUserChallenges(
-        (data || []).map((item: any) => ({
-          id: item.id,
-          challengeId: parseInt(item.challenge_id, 10),
-          completed: item.completed,
-          completedAt: item.completed_at,
-          proofText: item.proof_text,
-          proofPhoto: item.proof_photo,
-        }))
+        (data || []).map((item: unknown) => {
+          const i = item as any;
+          return {
+            id: i.id,
+            challengeId: parseInt(i.challenge_id, 10),
+            completed: i.completed,
+            completedAt: i.completed_at,
+            proofText: i.proof_text,
+            proofPhoto: i.proof_photo,
+          };
+        }),
       );
       setShowModal(false);
       setProofText('');
@@ -181,20 +195,30 @@ export default function MiniChallengesPage() {
   // Add German translations for category and difficulty
   const getCategoryLabel = (category: string) => {
     switch (category) {
-      case 'diet': return 'Ernährung';
-      case 'shopping': return 'Einkaufen';
-      case 'cooking': return 'Kochen';
-      case 'sustainability': return 'Nachhaltigkeit';
-      case 'gardening': return 'Garten';
-      default: return category;
+      case 'diet':
+        return 'Ernährung';
+      case 'shopping':
+        return 'Einkaufen';
+      case 'cooking':
+        return 'Kochen';
+      case 'sustainability':
+        return 'Nachhaltigkeit';
+      case 'gardening':
+        return 'Garten';
+      default:
+        return category;
     }
   };
   const getDifficultyLabel = (difficulty: string) => {
     switch (difficulty) {
-      case 'easy': return 'Einfach';
-      case 'medium': return 'Mittel';
-      case 'hard': return 'Schwierig';
-      default: return difficulty;
+      case 'easy':
+        return 'Einfach';
+      case 'medium':
+        return 'Mittel';
+      case 'hard':
+        return 'Schwierig';
+      default:
+        return difficulty;
     }
   };
 
@@ -224,13 +248,13 @@ export default function MiniChallengesPage() {
           </div>
 
           {error && <div className="text-red-500 mb-4">{error}</div>}
-          {loading && (
-            <div className="text-center text-gray-500 mb-4">Lade...</div>
-          )}
+          {loading && <div className="text-center text-gray-500 mb-4">Lade...</div>}
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Abgeschlossene Challenges</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Abgeschlossene Challenges
+              </h3>
               <p className="text-3xl font-bold text-green-600">{completedCount}</p>
               <p className="text-sm text-gray-600">von {challenges.length}</p>
             </Card>
@@ -244,7 +268,8 @@ export default function MiniChallengesPage() {
             <Card className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Abschlussrate</h3>
               <p className="text-3xl font-bold text-purple-600">
-                {challenges.length > 0 ? Math.round((completedCount / challenges.length) * 100) : 0}%
+                {challenges.length > 0 ? Math.round((completedCount / challenges.length) * 100) : 0}
+                %
               </p>
               <p className="text-sm text-gray-600">der Challenges abgeschlossen</p>
             </Card>
@@ -291,10 +316,16 @@ export default function MiniChallengesPage() {
                       </div>
                       <div className="text-gray-900 mt-2">Abgeschlossen!</div>
                       {userChallenge.proofText && (
-                        <div className="mt-2 text-gray-900 text-sm"><b>Nachweis:</b> {userChallenge.proofText}</div>
+                        <div className="mt-2 text-gray-900 text-sm">
+                          <b>Nachweis:</b> {userChallenge.proofText}
+                        </div>
                       )}
                       {userChallenge.proofPhoto && (
-                        <img src={userChallenge.proofPhoto} alt="Nachweis" className="mt-2 max-h-32 rounded" />
+                        <img
+                          src={userChallenge.proofPhoto}
+                          alt="Nachweis"
+                          className="mt-2 max-h-32 rounded"
+                        />
                       )}
                     </div>
                   ) : (
@@ -320,7 +351,9 @@ export default function MiniChallengesPage() {
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
             <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
               <h2 className="text-xl font-bold mb-4 text-gray-900">Challenge abschließen?</h2>
-              <p className="mb-4 text-gray-900">Möchtest du die Challenge "{selectedChallenge.title}" als abgeschlossen markieren?</p>
+              <p className="mb-4 text-gray-900">
+                Möchtest du die Challenge "{selectedChallenge.title}" als abgeschlossen markieren?
+              </p>
               <div className="mb-4">
                 <label className="block font-medium text-gray-900 mb-1">
                   Dein Nachweis (Text){requireProofText ? ' *' : ' (optional)'}
@@ -329,7 +362,7 @@ export default function MiniChallengesPage() {
                   className="border rounded px-3 py-2 w-full text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 appearance-none"
                   placeholder="Beschreibe, wie du die Challenge gelöst hast..."
                   value={proofText}
-                  onChange={e => setProofText(e.target.value)}
+                  onChange={(e) => setProofText(e.target.value)}
                   required={!!requireProofText}
                   rows={3}
                 />
@@ -341,7 +374,7 @@ export default function MiniChallengesPage() {
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={e => {
+                  onChange={(e) => {
                     if (e.target.files && e.target.files[0]) {
                       setProofImage(e.target.files[0]);
                       setProofImageUrl(URL.createObjectURL(e.target.files[0]));
@@ -354,7 +387,15 @@ export default function MiniChallengesPage() {
                 )}
               </div>
               <div className="flex justify-end space-x-4">
-                <Button variant="secondary" onClick={() => { setShowModal(false); setProofText(''); setProofImage(null); setProofImageUrl(''); }}>
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    setShowModal(false);
+                    setProofText('');
+                    setProofImage(null);
+                    setProofImageUrl('');
+                  }}
+                >
                   Abbrechen
                 </Button>
                 <Button
@@ -388,4 +429,3 @@ export default function MiniChallengesPage() {
     </ProtectedRoute>
   );
 }
- 

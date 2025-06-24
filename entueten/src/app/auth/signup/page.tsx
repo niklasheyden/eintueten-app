@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { signUp } from '@/lib/auth';
 import { Button } from '@/components/Button';
@@ -15,7 +14,6 @@ export default function SignUpPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,7 +44,8 @@ export default function SignUpPage() {
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-gray-900 mb-4">E-Mail bestätigen</h2>
             <p className="text-gray-600 mb-6">
-              Wir haben dir einen Bestätigungslink geschickt. Bitte prüfe deine E-Mails und klicke auf den Link, um dein Konto zu verifizieren.
+              Wir haben dir einen Bestätigungslink geschickt. Bitte prüfe deine E-Mails und klicke
+              auf den Link, um dein Konto zu verifizieren.
             </p>
             <Link href="/auth/signin" className="text-indigo-600 hover:text-indigo-500">
               Zur Anmeldung
@@ -129,4 +128,3 @@ export default function SignUpPage() {
     </div>
   );
 }
- 

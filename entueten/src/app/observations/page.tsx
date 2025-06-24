@@ -5,7 +5,6 @@ import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { Navbar } from '@/components/Navbar';
 import { Card } from '@/components/Card';
 import { Button } from '@/components/Button';
-import { Input } from '@/components/Input';
 import { useAuth } from '@/lib/AuthContext';
 import { signOut } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
@@ -25,6 +24,12 @@ interface Answer {
   answer: string;
   category: string;
 }
+
+type ObservationRow = {
+  question_id: string;
+  value: string;
+  category: string;
+};
 
 export default function ObservationsPage() {
   const { user } = useAuth();
@@ -55,11 +60,11 @@ export default function ObservationsPage() {
         setError('Fehler beim Laden der Antworten.');
       } else {
         setAnswers(
-          (data || []).map((item: any) => ({
+          (data || []).map((item: ObservationRow) => ({
             questionId: parseInt(item.question_id, 10),
             answer: item.value,
             category: item.category,
-          }))
+          })),
         );
         if ((data || []).length > 0) {
           setAlreadyCompleted(true);
@@ -161,15 +166,24 @@ export default function ObservationsPage() {
   // Add German translations for category
   const getCategoryLabel = (category: string) => {
     switch (category) {
-      case 'diet': return 'Ernährung';
-      case 'shopping': return 'Einkaufen';
-      case 'sustainability': return 'Nachhaltigkeit';
-      case 'gardening': return 'Garten';
-      case 'preferences': return 'Vorlieben';
-      case 'cooking': return 'Kochen';
-      case 'challenges': return 'Challenges';
-      case 'motivation': return 'Motivation';
-      default: return category;
+      case 'diet':
+        return 'Ernährung';
+      case 'shopping':
+        return 'Einkaufen';
+      case 'sustainability':
+        return 'Nachhaltigkeit';
+      case 'gardening':
+        return 'Garten';
+      case 'preferences':
+        return 'Vorlieben';
+      case 'cooking':
+        return 'Kochen';
+      case 'challenges':
+        return 'Challenges';
+      case 'motivation':
+        return 'Motivation';
+      default:
+        return category;
     }
   };
 
@@ -182,9 +196,12 @@ export default function ObservationsPage() {
             <div className="max-w-2xl mx-auto text-center">
               <Card className="p-8">
                 <div className="text-6xl mb-4">✅</div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-4">Umfrage bereits abgeschlossen</h1>
+                <h1 className="text-3xl font-bold text-gray-900 mb-4">
+                  Umfrage bereits abgeschlossen
+                </h1>
                 <p className="text-gray-600 mb-6">
-                  Du hast die Beobachtungs-Umfrage bereits ausgefüllt. Vielen Dank für deine Teilnahme!
+                  Du hast die Beobachtungs-Umfrage bereits ausgefüllt. Vielen Dank für deine
+                  Teilnahme!
                 </p>
                 <Button onClick={() => router.push('/dashboard')}>Zur Übersicht</Button>
               </Card>
@@ -207,7 +224,8 @@ export default function ObservationsPage() {
                 <div className="text-6xl mb-4">🎉</div>
                 <h1 className="text-3xl font-bold text-gray-900 mb-4">Umfrage abgeschlossen!</h1>
                 <p className="text-gray-600 mb-6">
-                  Vielen Dank für deine Antworten. Deine Rückmeldungen helfen uns, nachhaltige Essgewohnheiten besser zu verstehen.
+                  Vielen Dank für deine Antworten. Deine Rückmeldungen helfen uns, nachhaltige
+                  Essgewohnheiten besser zu verstehen.
                 </p>
 
                 <div className="grid grid-cols-2 gap-4 mb-6">
@@ -224,9 +242,7 @@ export default function ObservationsPage() {
                 </div>
 
                 {error && <div className="text-red-500 mb-4">{error}</div>}
-                {loading && (
-                  <div className="text-center text-gray-500 mb-4">Lade...</div>
-                )}
+                {loading && <div className="text-center text-gray-500 mb-4">Lade...</div>}
 
                 <Button onClick={() => router.push('/dashboard')}>Zur Übersicht</Button>
               </Card>
@@ -246,13 +262,13 @@ export default function ObservationsPage() {
           <div className="max-w-4xl mx-auto">
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Beobachtungs-Umfrage</h1>
-              <p className="text-gray-600">Teile deine Erfahrungen zu nachhaltigen Essgewohnheiten</p>
+              <p className="text-gray-600">
+                Teile deine Erfahrungen zu nachhaltigen Essgewohnheiten
+              </p>
             </div>
 
             {error && <div className="text-red-500 mb-4">{error}</div>}
-            {loading && (
-              <div className="text-center text-gray-500 mb-4">Lade...</div>
-            )}
+            {loading && <div className="text-center text-gray-500 mb-4">Lade...</div>}
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
               <div className="lg:col-span-3">
@@ -278,7 +294,9 @@ export default function ObservationsPage() {
                     </div>
                   </div>
 
-                  <h2 className="text-xl font-semibold text-gray-900 mb-6">{currentQuestion.question}</h2>
+                  <h2 className="text-xl font-semibold text-gray-900 mb-6">
+                    {currentQuestion.question}
+                  </h2>
 
                   {currentQuestion.type === 'multiple_choice' && currentQuestion.options && (
                     <div className="space-y-3">
@@ -362,4 +380,3 @@ export default function ObservationsPage() {
     </ProtectedRoute>
   );
 }
- 

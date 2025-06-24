@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
-import { Card } from "@/components/Card";
+import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabaseClient';
+import { Card } from '@/components/Card';
 
 export default function ProjectDashboard() {
   const [loading, setLoading] = useState(true);
@@ -22,27 +22,27 @@ export default function ProjectDashboard() {
       try {
         // Total users
         const { count: userCount } = await supabase
-          .from("users")
-          .select("*", { count: "exact", head: true });
+          .from('users')
+          .select('*', { count: 'exact', head: true });
         // Total kitchen check sessions completed
         const { count: kitchenChecks } = await supabase
-          .from("kitchen_check_sessions")
-          .select("*", { count: "exact", head: true })
-          .neq("completed_at", null);
+          .from('kitchen_check_sessions')
+          .select('*', { count: 'exact', head: true })
+          .neq('completed_at', null);
         // Total kitchen items
         const { count: kitchenItems } = await supabase
-          .from("kitchen_items")
-          .select("*", { count: "exact", head: true });
+          .from('kitchen_items')
+          .select('*', { count: 'exact', head: true });
         // Total challenges completed
         const { count: challengesCompleted } = await supabase
-          .from("mini_challenge_progress")
-          .select("*", { count: "exact", head: true })
-          .eq("completed", true);
+          .from('mini_challenge_progress')
+          .select('*', { count: 'exact', head: true })
+          .eq('completed', true);
         // Total observation surveys (distinct users)
         const { data: obsData, error: obsError } = await supabase
-          .from("observations")
-          .select("user_id", { count: "exact" });
-        const obsUserIds = obsData ? Array.from(new Set(obsData.map((o: any) => o.user_id))) : [];
+          .from('observations')
+          .select('user_id', { count: 'exact' });
+        const obsUserIds = obsData ? Array.from(new Set(obsData.map((o: unknown) => (o as any).user_id))) : [];
         setStats({
           users: userCount || 0,
           kitchenChecks: kitchenChecks || 0,
@@ -50,8 +50,8 @@ export default function ProjectDashboard() {
           challengesCompleted: challengesCompleted || 0,
           observations: obsUserIds.length,
         });
-      } catch (err) {
-        setError("Fehler beim Laden der Statistiken.");
+      } catch (err: unknown) {
+        setError('Fehler beim Laden der Statistiken.');
       }
       setLoading(false);
     };
@@ -75,11 +75,15 @@ export default function ProjectDashboard() {
               <p className="text-3xl font-bold text-blue-600">{stats.users}</p>
             </Card>
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Abgeschlossene Küchen-Checks</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Abgeschlossene Küchen-Checks
+              </h3>
               <p className="text-3xl font-bold text-green-600">{stats.kitchenChecks}</p>
             </Card>
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Lebensmittel dokumentiert</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Lebensmittel dokumentiert
+              </h3>
               <p className="text-3xl font-bold text-purple-600">{stats.kitchenItems}</p>
             </Card>
             <Card className="p-6">
@@ -98,4 +102,4 @@ export default function ProjectDashboard() {
       </div>
     </div>
   );
-} 
+}

@@ -32,7 +32,8 @@ export default function Home() {
             Willkommen bei <span className="text-green-600">Entüten</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8">
-            Dokumentiere deine nachhaltigen Lebensmittelentscheidungen, schließe Herausforderungen ab und leiste einen positiven Beitrag für die Umwelt.
+            Dokumentiere deine nachhaltigen Lebensmittelentscheidungen, schließe Herausforderungen
+            ab und leiste einen positiven Beitrag für die Umwelt.
           </p>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -47,13 +48,16 @@ export default function Home() {
               <div className="text-3xl mb-4">🏆</div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Mini-Challenges</h3>
               <p className="text-gray-600">
-                Schließe spannende Herausforderungen ab, um dein nachhaltiges Essverhalten zu verbessern
+                Schließe spannende Herausforderungen ab, um dein nachhaltiges Essverhalten zu
+                verbessern
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <div className="text-3xl mb-4">📊</div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Beobachtungen</h3>
-              <p className="text-gray-600">Teile deine Erkenntnisse und verfolge deinen Fortschritt im Laufe der Zeit</p>
+              <p className="text-gray-600">
+                Teile deine Erkenntnisse und verfolge deinen Fortschritt im Laufe der Zeit
+              </p>
             </div>
           </div>
 

@@ -14,4 +14,4 @@ export function middleware(req: NextRequest) {
   // TODO: Check Supabase auth session (requires server-side integration)
   // For now, allow all
   return NextResponse.next();
-}
+} 

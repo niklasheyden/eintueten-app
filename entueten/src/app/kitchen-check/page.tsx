@@ -22,8 +22,66 @@ interface Municipality {
 }
 
 const predefinedGroceries = [
-  'Tomaten', 'Brot', 'Milch', 'Käse', 'Äpfel', 'Kartoffeln', 'Butter', 'Joghurt', 'Karotten', 'Eier', 'Reis', 'Bananen', 'Fleisch', 'Fisch', 'Tofu',
-  'Paprika', 'Salat', 'Gurke', 'Zwiebeln', 'Knoblauch', 'Linsen', 'Kichererbsen', 'Haferflocken', 'Müsli', 'Schokolade', 'Kaffee', 'Tee', 'Wurst', 'Quark', 'Sahne', 'Spinat', 'Pilze', 'Birnen', 'Trauben', 'Orangen', 'Mandarinen', 'Honig', 'Marmelade', 'Nudeln', 'Couscous', 'Polenta', 'Mais', 'Erbsen', 'Walnüsse', 'Mandeln', 'Cashews', 'Sonnenblumenkerne', 'Kürbiskerne', 'Olivenöl', 'Rapsöl', 'Butter', 'Margarine', 'Kekse', 'Chips', 'Saft', 'Wasser', 'Limo', 'Cola', 'Bier', 'Wein'
+  'Tomaten',
+  'Brot',
+  'Milch',
+  'Käse',
+  'Äpfel',
+  'Kartoffeln',
+  'Butter',
+  'Joghurt',
+  'Karotten',
+  'Eier',
+  'Reis',
+  'Bananen',
+  'Fleisch',
+  'Fisch',
+  'Tofu',
+  'Paprika',
+  'Salat',
+  'Gurke',
+  'Zwiebeln',
+  'Knoblauch',
+  'Linsen',
+  'Kichererbsen',
+  'Haferflocken',
+  'Müsli',
+  'Schokolade',
+  'Kaffee',
+  'Tee',
+  'Wurst',
+  'Quark',
+  'Sahne',
+  'Spinat',
+  'Pilze',
+  'Birnen',
+  'Trauben',
+  'Orangen',
+  'Mandarinen',
+  'Honig',
+  'Marmelade',
+  'Nudeln',
+  'Couscous',
+  'Polenta',
+  'Mais',
+  'Erbsen',
+  'Walnüsse',
+  'Mandeln',
+  'Cashews',
+  'Sonnenblumenkerne',
+  'Kürbiskerne',
+  'Olivenöl',
+  'Rapsöl',
+  'Butter',
+  'Margarine',
+  'Kekse',
+  'Chips',
+  'Saft',
+  'Wasser',
+  'Limo',
+  'Cola',
+  'Bier',
+  'Wein',
 ];
 const categories = [
   { key: 'Früchte', label: 'Früchte', icon: '🍎' },
@@ -42,7 +100,7 @@ const origins = [
   'aus eigener Gemeinde oder Nachbargemeinde',
   'Kanton Aargau',
   'Schweiz',
-  'Anderes Land'
+  'Anderes Land',
 ];
 const labels = ['Bio', 'IP', 'Regiolabel', 'Fairtrade', 'Anderes', 'Keines'];
 
@@ -56,18 +114,245 @@ const plzToGemeinde: Record<string, string> = {
 };
 
 const countryList = [
-  'Afghanistan', 'Ägypten', 'Albanien', 'Algerien', 'Andorra', 'Angola', 'Antigua und Barbuda', 'Äquatorialguinea', 'Argentinien', 'Armenien', 'Aserbaidschan', 'Äthiopien', 'Australien', 'Bahamas', 'Bahrain', 'Bangladesch', 'Barbados', 'Belgien', 'Belize', 'Benin', 'Bhutan', 'Bolivien', 'Bosnien und Herzegowina', 'Botswana', 'Brasilien', 'Brunei', 'Bulgarien', 'Burkina Faso', 'Burundi', 'Chile', 'China', 'Costa Rica', 'Dänemark', 'Deutschland', 'Dominica', 'Dominikanische Republik', 'Dschibuti', 'Ecuador', 'El Salvador', 'Elfenbeinküste', 'Eritrea', 'Estland', 'Eswatini', 'Fidschi', 'Finnland', 'Frankreich', 'Gabun', 'Gambia', 'Georgien', 'Ghana', 'Grenada', 'Griechenland', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras', 'Indien', 'Indonesien', 'Irak', 'Iran', 'Irland', 'Island', 'Israel', 'Italien', 'Jamaika', 'Japan', 'Jemen', 'Jordanien', 'Kambodscha', 'Kamerun', 'Kanada', 'Kap Verde', 'Kasachstan', 'Katar', 'Kenia', 'Kirgisistan', 'Kiribati', 'Kolumbien', 'Komoren', 'Kongo', 'Kroatien', 'Kuba', 'Kuwait', 'Laos', 'Lesotho', 'Lettland', 'Libanon', 'Liberia', 'Libyen', 'Liechtenstein', 'Litauen', 'Luxemburg', 'Madagaskar', 'Malawi', 'Malaysia', 'Malediven', 'Mali', 'Malta', 'Marokko', 'Marshallinseln', 'Mauretanien', 'Mauritius', 'Mexiko', 'Mikronesien', 'Moldau', 'Monaco', 'Mongolei', 'Montenegro', 'Mosambik', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Neuseeland', 'Nicaragua', 'Niederlande', 'Niger', 'Nigeria', 'Nordkorea', 'Nordmazedonien', 'Norwegen', 'Oman', 'Österreich', 'Osttimor', 'Pakistan', 'Palau', 'Panama', 'Papua-Neuguinea', 'Paraguay', 'Peru', 'Philippinen', 'Polen', 'Portugal', 'Ruanda', 'Rumänien', 'Russland', 'Salomonen', 'Sambia', 'Samoa', 'San Marino', 'São Tomé und Príncipe', 'Saudi-Arabien', 'Schweden', 'Schweiz', 'Senegal', 'Serbien', 'Seychellen', 'Sierra Leone', 'Simbabwe', 'Singapur', 'Slowakei', 'Slowenien', 'Somalia', 'Spanien', 'Sri Lanka', 'St. Kitts und Nevis', 'St. Lucia', 'St. Vincent und die Grenadinen', 'Südafrika', 'Sudan', 'Südkorea', 'Südsudan', 'Suriname', 'Syrien', 'Tadschikistan', 'Tansania', 'Thailand', 'Togo', 'Tonga', 'Trinidad und Tobago', 'Tschad', 'Tschechien', 'Tunesien', 'Türkei', 'Turkmenistan', 'Tuvalu', 'Uganda', 'Ukraine', 'Ungarn', 'Uruguay', 'Usbekistan', 'Vanuatu', 'Vatikanstadt', 'Venezuela', 'Vereinigte Arabische Emirate', 'Vereinigte Staaten', 'Vereinigtes Königreich', 'Vietnam', 'Zentralafrikanische Republik', 'Zypern'
+  'Afghanistan',
+  'Ägypten',
+  'Albanien',
+  'Algerien',
+  'Andorra',
+  'Angola',
+  'Antigua und Barbuda',
+  'Äquatorialguinea',
+  'Argentinien',
+  'Armenien',
+  'Aserbaidschan',
+  'Äthiopien',
+  'Australien',
+  'Bahamas',
+  'Bahrain',
+  'Bangladesch',
+  'Barbados',
+  'Belgien',
+  'Belize',
+  'Benin',
+  'Bhutan',
+  'Bolivien',
+  'Bosnien und Herzegowina',
+  'Botswana',
+  'Brasilien',
+  'Brunei',
+  'Bulgarien',
+  'Burkina Faso',
+  'Burundi',
+  'Chile',
+  'China',
+  'Costa Rica',
+  'Dänemark',
+  'Deutschland',
+  'Dominica',
+  'Dominikanische Republik',
+  'Dschibuti',
+  'Ecuador',
+  'El Salvador',
+  'Elfenbeinküste',
+  'Eritrea',
+  'Estland',
+  'Eswatini',
+  'Fidschi',
+  'Finnland',
+  'Frankreich',
+  'Gabun',
+  'Gambia',
+  'Georgien',
+  'Ghana',
+  'Grenada',
+  'Griechenland',
+  'Guatemala',
+  'Guinea',
+  'Guinea-Bissau',
+  'Guyana',
+  'Haiti',
+  'Honduras',
+  'Indien',
+  'Indonesien',
+  'Irak',
+  'Iran',
+  'Irland',
+  'Island',
+  'Israel',
+  'Italien',
+  'Jamaika',
+  'Japan',
+  'Jemen',
+  'Jordanien',
+  'Kambodscha',
+  'Kamerun',
+  'Kanada',
+  'Kap Verde',
+  'Kasachstan',
+  'Katar',
+  'Kenia',
+  'Kirgisistan',
+  'Kiribati',
+  'Kolumbien',
+  'Komoren',
+  'Kongo',
+  'Kroatien',
+  'Kuba',
+  'Kuwait',
+  'Laos',
+  'Lesotho',
+  'Lettland',
+  'Libanon',
+  'Liberia',
+  'Libyen',
+  'Liechtenstein',
+  'Litauen',
+  'Luxemburg',
+  'Madagaskar',
+  'Malawi',
+  'Malaysia',
+  'Malediven',
+  'Mali',
+  'Malta',
+  'Marokko',
+  'Marshallinseln',
+  'Mauretanien',
+  'Mauritius',
+  'Mexiko',
+  'Mikronesien',
+  'Moldau',
+  'Monaco',
+  'Mongolei',
+  'Montenegro',
+  'Mosambik',
+  'Myanmar',
+  'Namibia',
+  'Nauru',
+  'Nepal',
+  'Neuseeland',
+  'Nicaragua',
+  'Niederlande',
+  'Niger',
+  'Nigeria',
+  'Nordkorea',
+  'Nordmazedonien',
+  'Norwegen',
+  'Oman',
+  'Österreich',
+  'Osttimor',
+  'Pakistan',
+  'Palau',
+  'Panama',
+  'Papua-Neuguinea',
+  'Paraguay',
+  'Peru',
+  'Philippinen',
+  'Polen',
+  'Portugal',
+  'Ruanda',
+  'Rumänien',
+  'Russland',
+  'Salomonen',
+  'Sambia',
+  'Samoa',
+  'San Marino',
+  'São Tomé und Príncipe',
+  'Saudi-Arabien',
+  'Schweden',
+  'Schweiz',
+  'Senegal',
+  'Serbien',
+  'Seychellen',
+  'Sierra Leone',
+  'Simbabwe',
+  'Singapur',
+  'Slowakei',
+  'Slowenien',
+  'Somalia',
+  'Spanien',
+  'Sri Lanka',
+  'St. Kitts und Nevis',
+  'St. Lucia',
+  'St. Vincent und die Grenadinen',
+  'Südafrika',
+  'Sudan',
+  'Südkorea',
+  'Südsudan',
+  'Suriname',
+  'Syrien',
+  'Tadschikistan',
+  'Tansania',
+  'Thailand',
+  'Togo',
+  'Tonga',
+  'Trinidad und Tobago',
+  'Tschad',
+  'Tschechien',
+  'Tunesien',
+  'Türkei',
+  'Turkmenistan',
+  'Tuvalu',
+  'Uganda',
+  'Ukraine',
+  'Ungarn',
+  'Uruguay',
+  'Usbekistan',
+  'Vanuatu',
+  'Vatikanstadt',
+  'Venezuela',
+  'Vereinigte Arabische Emirate',
+  'Vereinigte Staaten',
+  'Vereinigtes Königreich',
+  'Vietnam',
+  'Zentralafrikanische Republik',
+  'Zypern',
 ];
 
 const priorityCountryList = [
-  'Deutschland', 'Italien', 'Frankreich', 'Spanien', 'Niederlande', 'Belgien', 'Österreich', 'China', 'USA', 'Brasilien', 'Polen', 'Marokko', 'Türkei', 'Indien', 'Südafrika', 'Peru', 'Thailand', 'Vietnam', 'Griechenland', 'Portugal', 'Ungarn', 'Tschechien', 'Dänemark', 'Schweden', 'Norwegen', 'Finnland', 'Irland', 'Vereinigtes Königreich', 'Russland', 'Schweiz'
+  'Deutschland',
+  'Italien',
+  'Frankreich',
+  'Spanien',
+  'Niederlande',
+  'Belgien',
+  'Österreich',
+  'China',
+  'USA',
+  'Brasilien',
+  'Polen',
+  'Marokko',
+  'Türkei',
+  'Indien',
+  'Südafrika',
+  'Peru',
+  'Thailand',
+  'Vietnam',
+  'Griechenland',
+  'Portugal',
+  'Ungarn',
+  'Tschechien',
+  'Dänemark',
+  'Schweden',
+  'Norwegen',
+  'Finnland',
+  'Irland',
+  'Vereinigtes Königreich',
+  'Russland',
+  'Schweiz',
 ];
 
 export default function KitchenCheckForm() {
   const { user } = useAuth();
   const router = useRouter();
   const [items, setItems] = useState<any[]>([]);
-  const [currentItem, setCurrentItem] = useState<any>({ name: '', category: '', origin: '', origin_detail: '', label: '', purchase_location: '' });
+  const [currentItem, setCurrentItem] = useState<any>({
+    name: '',
+    category: '',
+    origin: '',
+    origin_detail: '',
+    label: '',
+    purchase_location: '',
+  });
   const [showEnoughMessage, setShowEnoughMessage] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -148,18 +433,24 @@ export default function KitchenCheckForm() {
 
   // Progress bar calculation (now based on items out of 20)
   const itemProgress = Math.min(items.length, 20);
-  const progress = Math.round((itemProgress / 20) * 100);
 
   // Calculate unique categories progress
-  const uniqueCategories = Array.from(new Set(items.map(i => i.category))).filter(Boolean);
+  const uniqueCategories = Array.from(new Set(items.map((i) => i.category))).filter(Boolean);
   const categoryProgress = Math.min(uniqueCategories.length, 5);
 
   // Validation for 20 items from 5 categories
-  const categoriesSet = new Set(items.map(i => i.category));
+  const categoriesSet = new Set(items.map((i) => i.category));
   const enoughItems = items.length >= 20 && categoriesSet.size >= 5;
 
   const resetCurrentItem = () => {
-    setCurrentItem({ name: '', category: '', origin: '', origin_detail: '', label: '', purchase_location: '' });
+    setCurrentItem({
+      name: '',
+      category: '',
+      origin: '',
+      origin_detail: '',
+      label: '',
+      purchase_location: '',
+    });
     setMunicipalitySearch('');
     setCountrySearch('');
   };
@@ -167,19 +458,6 @@ export default function KitchenCheckForm() {
   const handleSignOut = async () => {
     await signOut();
     router.push('/');
-  };
-
-  // Handle PLZ autofill
-  const handleOriginDetailChange = (val: string) => {
-    setCurrentItem((prev: any) => {
-      let newDetail = val;
-      let autoName = '';
-      if (/^\d{4}$/.test(val) && plzToGemeinde[val]) {
-        autoName = plzToGemeinde[val];
-        newDetail = `${val} (${autoName})`;
-      }
-      return { ...prev, origin_detail: newDetail };
-    });
   };
 
   const handleDeleteItem = async (idx: number) => {
@@ -214,15 +492,19 @@ export default function KitchenCheckForm() {
       const item = items[editIndex];
       let updatedId = item.id;
       if (item.id) {
-        const { data, error } = await supabase.from('kitchen_items').update({
-          name: currentItem.name,
-          category: currentItem.category,
-          origin: currentItem.origin,
-          origin_detail: currentItem.origin_detail,
-          label: currentItem.label,
-          purchase_location: currentItem.purchase_location,
-          session_id: sessionId,
-        }).eq('id', item.id).select();
+        const { data, error } = await supabase
+          .from('kitchen_items')
+          .update({
+            name: currentItem.name,
+            category: currentItem.category,
+            origin: currentItem.origin,
+            origin_detail: currentItem.origin_detail,
+            label: currentItem.label,
+            purchase_location: currentItem.purchase_location,
+            session_id: sessionId,
+          })
+          .eq('id', item.id)
+          .select();
         if (error) {
           setError('Fehler beim Aktualisieren: ' + error.message);
           setLoading(false);
@@ -240,23 +522,33 @@ export default function KitchenCheckForm() {
       return;
     }
     // Add new
-    const { data, error } = await supabase.from('kitchen_items').insert({
-      user_id: user.id,
-      name: currentItem.name,
-      category: currentItem.category,
-      origin: currentItem.origin,
-      origin_detail: currentItem.origin_detail,
-      label: currentItem.label,
-      purchase_location: currentItem.purchase_location,
-      session_id: sessionId,
-    }).select();
+    const { data, error } = await supabase
+      .from('kitchen_items')
+      .insert({
+        user_id: user.id,
+        name: currentItem.name,
+        category: currentItem.category,
+        origin: currentItem.origin,
+        origin_detail: currentItem.origin_detail,
+        label: currentItem.label,
+        purchase_location: currentItem.purchase_location,
+        session_id: sessionId,
+      })
+      .select();
     if (error) {
       setError('Fehler beim Speichern: ' + error.message);
     } else {
-      setItems([...items, { ...currentItem, id: data && data[0] && data[0].id, session_id: sessionId }]);
+      setItems([
+        ...items,
+        { ...currentItem, id: data && data[0] && data[0].id, session_id: sessionId },
+      ]);
       resetCurrentItem();
       setGrocerySearch('');
-      if (!showEnoughMessage && items.length + 1 >= 20 && new Set([...categoriesSet, currentItem.category]).size >= 5) {
+      if (
+        !showEnoughMessage &&
+        items.length + 1 >= 20 &&
+        new Set([...categoriesSet, currentItem.category]).size >= 5
+      ) {
         setShowEnoughMessage(true);
       }
     }
@@ -268,32 +560,43 @@ export default function KitchenCheckForm() {
 
   // Filter groceries for combobox
   const filteredGroceries = grocerySearch
-    ? uniqueGroceries.filter(g => g.toLowerCase().includes(grocerySearch.toLowerCase()))
+    ? uniqueGroceries.filter((g) => g.toLowerCase().includes(grocerySearch.toLowerCase()))
     : uniqueGroceries;
 
   // Filter countries for autocomplete
   let filteredCountries: string[] = [];
   if (countrySearch) {
     const searchLower = countrySearch.toLowerCase();
-    const priorityMatches = priorityCountryList.filter(c => c.toLowerCase().includes(searchLower));
-    const otherMatches = countryList.filter(c => c.toLowerCase().includes(searchLower) && !priorityMatches.includes(c));
+    const priorityMatches = priorityCountryList.filter((c) =>
+      c.toLowerCase().includes(searchLower),
+    );
+    const otherMatches = countryList.filter(
+      (c) => c.toLowerCase().includes(searchLower) && !priorityMatches.includes(c),
+    );
     filteredCountries = [...priorityMatches, ...otherMatches];
   } else {
-    filteredCountries = [...priorityCountryList, ...countryList.filter(c => !priorityCountryList.includes(c))].slice(0, 10);
+    filteredCountries = [
+      ...priorityCountryList,
+      ...countryList.filter((c) => !priorityCountryList.includes(c)),
+    ].slice(0, 10);
   }
 
   // Filter municipalities for autocomplete
   const filteredMunicipalities = municipalitySearch
-    ? (aargauMunicipalities as Municipality[]).filter((m: Municipality) => 
-        m.name.toLowerCase().includes(municipalitySearch.toLowerCase()) ||
-        m.zip_codes.some((zip: string) => zip.includes(municipalitySearch))
+    ? (aargauMunicipalities as Municipality[]).filter(
+        (m: Municipality) =>
+          m.name.toLowerCase().includes(municipalitySearch.toLowerCase()) ||
+          m.zip_codes.some((zip: string) => zip.includes(municipalitySearch)),
       )
     : (aargauMunicipalities as Municipality[]).slice(0, 10);
 
   // Click outside handler for municipality suggestions
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (municipalityInputRef.current && !municipalityInputRef.current.contains(event.target as Node)) {
+      if (
+        municipalityInputRef.current &&
+        !municipalityInputRef.current.contains(event.target as Node)
+      ) {
         setShowMunicipalitySuggestions(false);
       }
     };
@@ -310,7 +613,10 @@ export default function KitchenCheckForm() {
           <Card className="p-6 mb-6">
             <h2 className="text-lg font-semibold mb-2 text-gray-900">Küchencheck</h2>
             {/* Sticky progress bar */}
-            <div className="sticky top-0 z-10 bg-white rounded-t-lg shadow-sm mb-4 pb-2 pt-2 px-6" style={{marginLeft: '-1.5rem', marginRight: '-1.5rem'}}>
+            <div
+              className="sticky top-0 z-10 bg-white rounded-t-lg shadow-sm mb-4 pb-2 pt-2 px-6"
+              style={{ marginLeft: '-1.5rem', marginRight: '-1.5rem' }}
+            >
               <div className="flex items-center justify-between mb-1">
                 <span className="text-sm font-bold text-gray-900">
                   {items.length < 20
@@ -329,7 +635,9 @@ export default function KitchenCheckForm() {
               {/* Category progress bar */}
               <div className="mt-3">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm font-bold text-gray-900">Kategorien: {categoryProgress}/5</span>
+                  <span className="text-sm font-bold text-gray-900">
+                    Kategorien: {categoryProgress}/5
+                  </span>
                 </div>
                 <div className="flex w-full gap-0.5">
                   {[...Array(5)].map((_, idx) => (
@@ -352,7 +660,7 @@ export default function KitchenCheckForm() {
                     className="border rounded px-3 py-2 w-full text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 appearance-none"
                     placeholder="z.B. Tomaten"
                     value={currentItem.name}
-                    onChange={e => {
+                    onChange={(e) => {
                       setCurrentItem({ ...currentItem, name: e.target.value });
                       setGrocerySearch(e.target.value);
                     }}
@@ -361,7 +669,7 @@ export default function KitchenCheckForm() {
                 </div>
                 {/* Tag-style suggestions */}
                 <div className="flex flex-wrap gap-2 mt-2">
-                  {filteredGroceries.slice(0, 8).map(g => (
+                  {filteredGroceries.slice(0, 8).map((g) => (
                     <button
                       type="button"
                       key={g}
@@ -377,12 +685,17 @@ export default function KitchenCheckForm() {
               <div>
                 <label className="block text-gray-900 font-medium mb-1">Kategorie *</label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {categories.map(cat => (
+                  {categories.map((cat) => (
                     <button
                       type="button"
                       key={cat.key}
                       className={`flex flex-col items-center justify-center border rounded-xl px-2 py-4 text-base font-medium transition focus:outline-none focus:ring-2 focus:ring-blue-500 w-full shadow-sm hover:shadow-md ${currentItem.category === cat.key ? 'bg-blue-100 border-blue-500 text-blue-800' : 'bg-white border-gray-200 text-gray-900'}`}
-                      onClick={() => setCurrentItem({ ...currentItem, category: currentItem.category === cat.key ? '' : cat.key })}
+                      onClick={() =>
+                        setCurrentItem({
+                          ...currentItem,
+                          category: currentItem.category === cat.key ? '' : cat.key,
+                        })
+                      }
                     >
                       <span className="text-3xl mb-1">{cat.icon}</span>
                       <span className="text-center text-sm font-semibold">{cat.label}</span>
@@ -392,19 +705,33 @@ export default function KitchenCheckForm() {
               </div>
               {/* Row 3: Herkunft dropdown */}
               <div>
-                <label className="block text-gray-900 font-medium mb-1">Woher kommt das Lebensmittel? *</label>
+                <label className="block text-gray-900 font-medium mb-1">
+                  Woher kommt das Lebensmittel? *
+                </label>
                 <div className="relative">
                   <select
                     className="border rounded px-3 py-2 w-full text-gray-900 bg-white appearance-none pr-10 focus:ring-2 focus:ring-blue-500"
                     value={currentItem.origin}
-                    onChange={e => setCurrentItem({ ...currentItem, origin: e.target.value })}
+                    onChange={(e) => setCurrentItem({ ...currentItem, origin: e.target.value })}
                     required
                   >
                     <option value="">Herkunft wählen</option>
-                    {origins.map(o => <option key={o} value={o}>{o}</option>)}
+                    {origins.map((o) => (
+                      <option key={o} value={o}>
+                        {o}
+                      </option>
+                    ))}
                   </select>
                   <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
                   </span>
                 </div>
               </div>
@@ -418,7 +745,7 @@ export default function KitchenCheckForm() {
                       className="border rounded px-3 py-2 w-full text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 appearance-none"
                       placeholder="Land suchen..."
                       value={countrySearch || currentItem.origin_detail || ''}
-                      onChange={e => {
+                      onChange={(e) => {
                         setCountrySearch(e.target.value);
                         setCurrentItem({ ...currentItem, origin_detail: '' });
                         setShowCountrySuggestions(true);
@@ -428,7 +755,7 @@ export default function KitchenCheckForm() {
                     />
                     {showCountrySuggestions && filteredCountries.length > 0 && (
                       <div className="absolute z-10 left-0 right-0 bg-white border border-gray-200 rounded shadow mt-1 max-h-48 overflow-auto">
-                        {filteredCountries.map(country => (
+                        {filteredCountries.map((country) => (
                           <button
                             type="button"
                             key={country}
@@ -448,14 +775,16 @@ export default function KitchenCheckForm() {
                 </div>
               ) : (
                 <div>
-                  <label className="block text-gray-900 font-medium mb-1">Hast du bei CH Produkten die genaue Ortsangabe? (Gemeindename oder PLZ)</label>
+                  <label className="block text-gray-900 font-medium mb-1">
+                    Hast du bei CH Produkten die genaue Ortsangabe? (Gemeindename oder PLZ)
+                  </label>
                   <div className="relative" ref={municipalityInputRef}>
                     <input
                       type="text"
                       className="border rounded px-3 py-2 w-full text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 appearance-none"
                       placeholder="Gemeindename oder PLZ eingeben..."
                       value={municipalitySearch || currentItem.origin_detail || ''}
-                      onChange={e => {
+                      onChange={(e) => {
                         setMunicipalitySearch(e.target.value);
                         setCurrentItem({ ...currentItem, origin_detail: '' });
                         setShowMunicipalitySuggestions(true);
@@ -477,7 +806,9 @@ export default function KitchenCheckForm() {
                             }}
                           >
                             <div className="font-medium">{municipality.name}</div>
-                            <div className="text-sm text-gray-600">PLZ: {municipality.zip_codes.join(', ')}</div>
+                            <div className="text-sm text-gray-600">
+                              PLZ: {municipality.zip_codes.join(', ')}
+                            </div>
                           </button>
                         ))}
                       </div>
@@ -487,35 +818,58 @@ export default function KitchenCheckForm() {
               )}
               {/* Row 5: Produktionsart/Label dropdown */}
               <div>
-                <label className="block text-gray-900 font-medium mb-1">Produktionsart/Label angeben (optional)</label>
+                <label className="block text-gray-900 font-medium mb-1">
+                  Produktionsart/Label angeben (optional)
+                </label>
                 <div className="relative">
                   <select
                     className="border rounded px-3 py-2 w-full text-gray-900 bg-white appearance-none pr-10 focus:ring-2 focus:ring-blue-500"
                     value={currentItem.label}
-                    onChange={e => setCurrentItem({ ...currentItem, label: e.target.value })}
+                    onChange={(e) => setCurrentItem({ ...currentItem, label: e.target.value })}
                   >
                     <option value="">Produktionsart/Label wählen</option>
-                    {labels.map(l => <option key={l} value={l}>{l}</option>)}
+                    {labels.map((l) => (
+                      <option key={l} value={l}>
+                        {l}
+                      </option>
+                    ))}
                   </select>
                   <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
                   </span>
                 </div>
               </div>
               {/* Row 6: Einkaufsort */}
               <div>
-                <label className="block text-gray-900 font-medium mb-1">Einkaufsort eingeben (optional)</label>
+                <label className="block text-gray-900 font-medium mb-1">
+                  Einkaufsort eingeben (optional)
+                </label>
                 <Input
                   type="text"
                   className="border rounded px-3 py-2 w-full text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 appearance-none"
                   placeholder="Einkaufsort"
                   value={currentItem.purchase_location}
-                  onChange={e => setCurrentItem({ ...currentItem, purchase_location: e.target.value })}
+                  onChange={(e) =>
+                    setCurrentItem({ ...currentItem, purchase_location: e.target.value })
+                  }
                 />
               </div>
               <div className="flex justify-end mt-4">
-                <Button type="submit" disabled={loading || !currentItem.name || !currentItem.category || !currentItem.origin}>
-                  {editIndex !== null ? "Änderungen speichern" : "Hinzufügen"}
+                <Button
+                  type="submit"
+                  disabled={
+                    loading || !currentItem.name || !currentItem.category || !currentItem.origin
+                  }
+                >
+                  {editIndex !== null ? 'Änderungen speichern' : 'Hinzufügen'}
                 </Button>
               </div>
             </form>
@@ -545,12 +899,17 @@ export default function KitchenCheckForm() {
             </div>
           )}
           <Card className="p-6">
-            <h2 className="text-lg font-semibold mb-2 text-gray-900">Bisherige Einträge ({items.length})</h2>
+            <h2 className="text-lg font-semibold mb-2 text-gray-900">
+              Bisherige Einträge ({items.length})
+            </h2>
             <div className="grid gap-3">
               {items.map((item, idx) => {
-                const cat = categories.find(c => c.key === item.category);
+                const cat = categories.find((c) => c.key === item.category);
                 return (
-                  <div key={idx} className="flex items-center justify-between bg-white rounded-xl shadow p-4 border border-gray-100 hover:shadow-md transition">
+                  <div
+                    key={idx}
+                    className="flex items-center justify-between bg-white rounded-xl shadow p-4 border border-gray-100 hover:shadow-md transition"
+                  >
                     <div className="flex items-center gap-4">
                       <div className="flex flex-col items-center justify-center w-12">
                         <span className="text-2xl">{cat?.icon}</span>
@@ -558,15 +917,51 @@ export default function KitchenCheckForm() {
                       <div>
                         <div className="font-semibold text-gray-900 text-base">{item.name}</div>
                         <div className="text-sm text-gray-700">{item.origin}</div>
-                        {item.purchase_location && <div className="text-xs text-gray-500">{item.purchase_location}</div>}
+                        {item.purchase_location && (
+                          <div className="text-xs text-gray-500">{item.purchase_location}</div>
+                        )}
                       </div>
                     </div>
                     <div className="flex gap-2">
-                      <button type="button" className="p-2 rounded hover:bg-blue-100" title="Bearbeiten" onClick={() => handleEditItem(idx)}>
-                        <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M16.862 3.487a2.25 2.25 0 0 1 3.182 3.182L7.5 19.213l-4 1 1-4 12.362-12.726z" strokeLinecap="round" strokeLinejoin="round"/><path d="M15 5l4 4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      <button
+                        type="button"
+                        className="p-2 rounded hover:bg-blue-100"
+                        title="Bearbeiten"
+                        onClick={() => handleEditItem(idx)}
+                      >
+                        <svg
+                          className="w-5 h-5 text-blue-600"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M16.862 3.487a2.25 2.25 0 0 1 3.182 3.182L7.5 19.213l-4 1 1-4 12.362-12.726z"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path d="M15 5l4 4" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                       </button>
-                      <button type="button" className="p-2 rounded hover:bg-red-100" title="Löschen" onClick={() => handleDeleteItem(idx)}>
-                        <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M3 6h18" strokeLinecap="round"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" strokeLinecap="round"/><rect x="5" y="6" width="14" height="14" rx="2"/><path d="M10 11v6M14 11v6" strokeLinecap="round"/></svg>
+                      <button
+                        type="button"
+                        className="p-2 rounded hover:bg-red-100"
+                        title="Löschen"
+                        onClick={() => handleDeleteItem(idx)}
+                      >
+                        <svg
+                          className="w-5 h-5 text-red-600"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M3 6h18" strokeLinecap="round" />
+                          <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" strokeLinecap="round" />
+                          <rect x="5" y="6" width="14" height="14" rx="2" />
+                          <path d="M10 11v6M14 11v6" strokeLinecap="round" />
+                        </svg>
                       </button>
                     </div>
                   </div>
@@ -578,4 +973,4 @@ export default function KitchenCheckForm() {
       </div>
     </ProtectedRoute>
   );
-} 
+}

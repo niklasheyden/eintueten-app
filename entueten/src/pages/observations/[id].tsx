@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '../../lib/supabaseClient';
 import { Navbar } from '../../components/Navbar';
+import { useAuth } from '../../lib/AuthContext';
+import { signOut } from '../../lib/auth';
 
 interface Question {
   id: string;
@@ -12,6 +14,12 @@ export default function ObservationDetail() {
   const router = useRouter();
   const { id } = router.query;
   const [question, setQuestion] = useState<Question | null>(null);
+  const { user } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.push('/');
+  };
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -34,7 +42,7 @@ export default function ObservationDetail() {
 
   return (
     <>
-      <Navbar />
+      <Navbar user={user} onSignOut={handleSignOut} />
       <main className="max-w-xl mx-auto mt-8">
         <h1 className="text-2xl font-bold mb-4">Observation Survey</h1>
         <div className="mb-4">{question.text}</div>
