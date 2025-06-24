@@ -1,0 +1,91 @@
+[
+  {
+    "id": 1,
+    "title": "Probiere ein neues Gemüse",
+    "description": "Kaufe und koche ein Gemüse, das du noch nie probiert hast.",
+    "category": "diet",
+    "difficulty": "easy",
+    "estimatedTime": "30 Minuten",
+    "points": 10,
+    "requireProofText": true,
+    "requireProofImage": true
+  },
+  {
+    "id": 2,
+    "title": "Fleischloser Montag",
+    "description": "Ernähre dich einen Tag lang vegetarisch.",
+    "category": "diet",
+    "difficulty": "medium",
+    "estimatedTime": "1 Tag",
+    "points": 20,
+    "requireProofText": false,
+    "requireProofImage": false
+  },
+  {
+    "id": 3,
+    "title": "Besuch auf dem Wochenmarkt",
+    "description": "Besuche einen lokalen Wochenmarkt und kaufe saisonale Produkte.",
+    "category": "shopping",
+    "difficulty": "easy",
+    "estimatedTime": "2 Stunden",
+    "points": 15,
+    "requireProofText": true,
+    "requireProofImage": false
+  },
+  {
+    "id": 4,
+    "title": "Zero-Waste-Kochen",
+    "description": "Verwende alle Teile eines Gemüses (auch Schalen und Reste) beim Kochen.",
+    "category": "sustainability",
+    "difficulty": "hard",
+    "estimatedTime": "1 Stunde",
+    "points": 25,
+    "requireProofText": false,
+    "requireProofImage": true
+  },
+  {
+    "id": 5,
+    "title": "Saisonales Rezept",
+    "description": "Koche ein Rezept nur mit saisonalen Zutaten.",
+    "category": "cooking",
+    "difficulty": "medium",
+    "estimatedTime": "45 Minuten",
+    "points": 15,
+    "requireProofText": true,
+    "requireProofImage": false
+  },
+  {
+    "id": 6,
+    "title": "Unverpackt einkaufen",
+    "description": "Kaufe Grundnahrungsmittel unverpackt, um Verpackungsmüll zu vermeiden.",
+    "category": "shopping",
+    "difficulty": "easy",
+    "estimatedTime": "30 Minuten",
+    "points": 10,
+    "requireProofText": false,
+    "requireProofImage": false
+  },
+  {
+    "id": 7,
+    "title": "Reste verwerten",
+    "description": "Verwandle Reste vom Vortag in ein komplett neues Gericht.",
+    "category": "cooking",
+    "difficulty": "medium",
+    "estimatedTime": "30 Minuten",
+    "points": 20,
+    "requireProofText": true,
+    "requireProofImage": true
+  },
+  {
+    "id": 8,
+    "title": "Kräutergarten anlegen",
+    "description": "Beginne, eigene Kräuter anzubauen (auch auf der Fensterbank möglich).",
+    "category": "gardening",
+    "difficulty": "easy",
+    "estimatedTime": "15 Minuten",
+    "points": 15,
+    "requireProofText": false,
+    "requireProofImage": false
+  }
+]
+ 
