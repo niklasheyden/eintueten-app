@@ -361,19 +361,17 @@ export default function DashboardPage() {
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Küchen-Checks insgesamt</h3>
               <p className="text-3xl font-bold text-blue-600">{completedKitchenChecks}</p>
               {inProgressCheck && (
-                <div className="text-sm text-yellow-700 mt-2 flex items-center gap-2">
-                  <span>Küchen-Check in Bearbeitung ({inProgressCount}/20 Einträge)</span>
+                <div className="flex flex-col gap-2 mt-2">
+                  <span className="text-sm text-yellow-700">Küchen-Check in Bearbeitung ({inProgressCount}/20 Einträge)</span>
+                  <span className="text-sm text-gray-600">Letzter Check: {formatDate(lastCompletedCheckDate)}</span>
                   <button
-                    className="ml-2 px-3 py-1 rounded bg-blue-600 text-white text-xs hover:bg-blue-700"
+                    className="px-4 py-2 rounded bg-blue-600 text-white text-base font-semibold hover:bg-blue-700 transition w-full sm:w-auto mt-2"
                     onClick={() => router.push('/kitchen-check/')}
                   >
                     Fortsetzen
                   </button>
                 </div>
               )}
-              <p className="text-sm text-gray-600">
-                Letzter Check: {formatDate(lastCompletedCheckDate)}
-              </p>
             </Card>
 
             <Card className="p-6">
@@ -508,7 +506,7 @@ export default function DashboardPage() {
                 {recentActivities.map((activity, i) => (
                   <div
                     key={i}
-                    className={`flex items-center justify-between p-4 rounded-lg ${
+                    className={`flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 rounded-lg ${
                       activity.type === 'kitchen'
                         ? 'bg-green-50'
                         : activity.type === 'kitchen-inprogress'
@@ -523,11 +521,11 @@ export default function DashboardPage() {
                       <p className="text-sm text-gray-900">{activity.desc}</p>
                     </div>
                     {activity.type !== 'kitchen-inprogress' && (
-                      <span className="text-sm text-gray-700">{formatDate(activity.date)}</span>
+                      <span className="text-sm text-gray-700 mt-2 sm:mt-0">{formatDate(activity.date)}</span>
                     )}
                     {activity.type === 'kitchen-inprogress' && (
                       <button
-                        className="ml-4 px-3 py-1 rounded bg-blue-600 text-white text-xs hover:bg-blue-700"
+                        className="px-4 py-2 rounded bg-blue-600 text-white text-base font-semibold hover:bg-blue-700 transition w-full sm:w-auto mt-2"
                         onClick={activity.action}
                       >
                         Fortsetzen
