@@ -15,8 +15,8 @@ export function Navbar({ user, onSignOut }: NavbarProps) {
   const pathname = rawPathname || '';
 
   return (
-    <nav className="bg-gray-800 text-white px-4 py-2 flex items-center justify-between relative">
-      <div className="font-bold">Entüten</div>
+    <nav className="bg-gray-800 text-white px-4 py-2 items-center justify-between relative hidden md:flex">
+      <div className="font-bold">Eintüten</div>
       {/* Desktop links */}
       <div className="hidden md:flex items-center space-x-4">
         <Link
