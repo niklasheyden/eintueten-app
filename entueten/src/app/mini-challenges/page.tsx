@@ -286,24 +286,17 @@ export default function MiniChallengesPage() {
                     <span
                       className={`inline-block px-2 py-1 rounded text-xs font-medium ${getCategoryColor(challenge.category)}`}
                     >
-                      {getCategoryLabel(challenge.category)}
-                    </span>
-                    <span
-                      className={`inline-block px-2 py-1 rounded text-xs font-medium ${getDifficultyColor(challenge.difficulty)}`}
-                    >
                       {getDifficultyLabel(challenge.difficulty)}
+                    </span>
+                    <span className="text-sm font-medium text-green-600">
+                      +{challenge.points} pts
                     </span>
                   </div>
 
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">{challenge.title}</h3>
                   <p className="text-gray-600 text-sm mb-4">{challenge.description}</p>
 
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-sm text-gray-500">⏱ {challenge.estimatedTime}</span>
-                    <span className="text-sm font-medium text-green-600">
-                      +{challenge.points} pts
-                    </span>
-                  </div>
+
 
                   {isCompleted ? (
                     <div className="bg-green-50 border border-green-200 rounded p-3">
@@ -356,7 +349,7 @@ export default function MiniChallengesPage() {
               </p>
               <div className="mb-4">
                 <label className="block font-medium text-gray-900 mb-1">
-                  Dein Nachweis (Text){requireProofText ? ' *' : ' (optional)'}
+                  Deine Antwort{requireProofText ? ' *' : ' (optional)'}
                 </label>
                 <textarea
                   className="border rounded px-3 py-2 w-full text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 appearance-none"

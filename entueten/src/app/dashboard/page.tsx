@@ -6,7 +6,7 @@ import { Card } from '@/components/Card';
 import { useAuth } from '@/lib/AuthContext';
 import { signOut } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
-import { Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { Tooltip, ResponsiveContainer, PieChart, Pie, Cell, BarChart, XAxis, YAxis, CartesianGrid, Bar, LabelList } from 'recharts';
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import challengesData from '@/data/challenges.json';
@@ -91,15 +91,18 @@ export default function DashboardPage() {
   function isSessionComplete(session: unknown) {
     const items = kitchenItems.filter((item) => item.session_id === (session as any).id);
     const categories = new Set(items.map((i) => i.category));
-    return !!(session as any).completed_at && items.length >= 20 && categories.size >= 5;
+    const requiredItems = 10; // Both milestones require 10 items
+    return !!(session as any).completed_at && items.length >= requiredItems && categories.size >= 5;
   }
 
-  // Find completed sessions
-  const completedSessions = kitchenCheckSessions.filter(isSessionComplete);
-  const completedKitchenChecks = completedSessions.length;
+  // Array of completed kitchen check sessions for milestone 1 and 2
+  const completedKitchenCheckSessions = kitchenCheckSessions.filter(
+    (session: any) =>
+      (session.milestone === 1 || session.milestone === 2) && isSessionComplete(session)
+  );
   const lastCompletedCheckDate =
-    completedSessions.length > 0
-      ? completedSessions[completedSessions.length - 1].completed_at
+    completedKitchenCheckSessions.length > 0
+      ? completedKitchenCheckSessions[completedKitchenCheckSessions.length - 1].completed_at
       : null;
 
   // Find in-progress session (not completed, has items)
@@ -112,6 +115,20 @@ export default function DashboardPage() {
   const inProgressCount = inProgressSession
     ? kitchenItems.filter((item) => item.session_id === (inProgressSession as any).id).length
     : 0;
+
+  // Check for in-progress sessions for specific milestones
+  const inProgressMilestone1 = kitchenCheckSessions.find((session: unknown) => {
+    if ((session as any).completed_at) return false;
+    if ((session as any).milestone !== 1) return false;
+    const items = kitchenItems.filter((item) => item.session_id === (session as any).id);
+    return items.length > 0;
+  });
+  const inProgressMilestone2 = kitchenCheckSessions.find((session: unknown) => {
+    if ((session as any).completed_at) return false;
+    if ((session as any).milestone !== 2) return false;
+    const items = kitchenItems.filter((item) => item.session_id === (session as any).id);
+    return items.length > 0;
+  });
 
   // Challenge stats
   const totalChallenges = Array.isArray(challengesData) ? challengesData.length : 0;
@@ -126,7 +143,7 @@ export default function DashboardPage() {
 
   // Letzte Aktivitäten
   const recentActivities = [
-    completedKitchenChecks > 0 &&
+    completedKitchenCheckSessions.length > 0 &&
       lastCompletedCheckDate && {
         type: 'kitchen',
         title: 'Küchen-Check abgeschlossen',
@@ -163,7 +180,7 @@ export default function DashboardPage() {
     .sort((a, b) => ((a as any).date > (b as any).date ? -1 : 1));
 
   // Find kitchen check completions (now using robust logic)
-  const sessionDates = completedSessions
+  const sessionDates = completedKitchenCheckSessions
     .map((s: unknown) => {
       const ss = s as any;
       return new Date(ss.completed_at);
@@ -179,74 +196,81 @@ export default function DashboardPage() {
     done: boolean,
     date: Date | undefined,
     label: string,
-    action: () => void,
+    action: (() => void) | undefined,
     isFirstMilestone?: boolean,
     session?: unknown,
-  ): React.ReactNode => (
-    <div
-      className={`flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 rounded-lg mb-4 ${done ? 'bg-green-50' : 'bg-yellow-50'}`}
-    >
-      <div className="flex items-center">
-        {done ? (
-          <span className="inline-flex items-center justify-center w-8 h-8 mr-3">
-            <svg
-              className="w-6 h-6 text-green-500"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              viewBox="0 0 24 24"
-            >
-              <circle cx="12" cy="12" r="10" fill="currentColor" />
-              <path
-                d="M8 12.5l2.5 2.5 5-5"
-                stroke="#fff"
+    customLabel?: string,
+    showCheckAnsehenButton?: boolean,
+  ): React.ReactNode => {
+    // Determine if this milestone has an in-progress session
+    const hasInProgressSession = isFirstMilestone ? !!inProgressMilestone1 : !!inProgressMilestone2;
+    return (
+      <div
+        className={`flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 rounded-lg mb-4 ${done ? 'bg-green-50' : 'bg-yellow-50'}`}
+      >
+        <div className="flex items-center">
+          {done ? (
+            <span className="inline-flex items-center justify-center w-8 h-8 mr-3">
+              <svg
+                className="w-6 h-6 text-green-500"
+                fill="none"
+                stroke="currentColor"
                 strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </span>
-        ) : (
-          <span className="inline-flex items-center justify-center w-8 h-8 mr-3">
-            <svg
-              className="w-6 h-6 text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="10" fill="currentColor" />
+                <path
+                  d="M8 12.5l2.5 2.5 5-5"
+                  stroke="#fff"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+          ) : (
+            <span className="inline-flex items-center justify-center w-8 h-8 mr-3">
+              <svg
+                className="w-6 h-6 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="10" />
+              </svg>
+            </span>
+          )}
+          <div>
+            <p className="font-semibold text-gray-900">{label}</p>
+            <p className="text-sm text-gray-700">
+              {done
+                ? `Abgeschlossen am ${date ? date.toLocaleDateString('de-DE') : ''}`
+                : 'Noch nicht abgeschlossen'}
+            </p>
+          </div>
+        </div>
+        <div className="mt-4 sm:mt-0 sm:ml-4 flex-shrink-0 w-full sm:w-auto">
+          {!done && action && (
+            <button
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full sm:w-auto"
+              onClick={action}
             >
-              <circle cx="12" cy="12" r="10" />
-            </svg>
-          </span>
-        )}
-        <div>
-          <p className="font-semibold text-gray-900">{label}</p>
-          <p className="text-sm text-gray-700">
-            {done
-              ? `Abgeschlossen am ${date ? date.toLocaleDateString('de-DE') : ''}`
-              : 'Noch nicht abgeschlossen'}
-          </p>
+              {customLabel || (hasInProgressSession ? 'Fortsetzen' : 'Jetzt starten')}
+            </button>
+          )}
+          {done && showCheckAnsehenButton && (
+            <button
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full sm:w-auto"
+              onClick={() => openItemsModal(session)}
+            >
+              Check ansehen
+            </button>
+          )}
         </div>
       </div>
-      <div className="mt-4 sm:mt-0 sm:ml-4 flex-shrink-0 w-full sm:w-auto">
-        {done ? (
-          <button
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full sm:w-auto"
-            onClick={() => openItemsModal(session)}
-          >
-            Check ansehen
-          </button>
-        ) : (
-          <button
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full sm:w-auto"
-            onClick={action}
-          >
-            {isFirstMilestone && inProgressCheck ? 'Fortsetzen' : 'Jetzt starten'}
-          </button>
-        )}
-      </div>
-    </div>
-  );
+    );
+  };
 
   const formatDate = (date: string | null) => {
     if (!date) return '-';
@@ -267,44 +291,32 @@ export default function DashboardPage() {
   };
 
   // Find the first and second completed kitchen check sessions
-  const firstSession = completedSessions[0];
-  const secondSession = completedSessions[1];
-
+  const firstSession = kitchenCheckSessions.find((s: any) => s.milestone === 1);
+  const secondSession = kitchenCheckSessions.find((s: any) => s.milestone === 2);
+  const firstSessionItems = firstSession
+    ? kitchenItems.filter((item: unknown) => {
+        const it = item as any;
+        return it.session_id === firstSession.id;
+      })
+    : [];
+  const secondSessionItems = secondSession
+    ? kitchenItems.filter((item: unknown) => {
+        const it = item as any;
+        return it.session_id === secondSession.id;
+      })
+    : [];
   function getOriginChartData(items: unknown[]) {
     const EU_COUNTRIES = [
-      'Belgien',
-      'Bulgarien',
-      'Dänemark',
-      'Deutschland',
-      'Estland',
-      'Finnland',
-      'Frankreich',
-      'Griechenland',
-      'Irland',
-      'Italien',
-      'Kroatien',
-      'Lettland',
-      'Litauen',
-      'Luxemburg',
-      'Malta',
-      'Niederlande',
-      'Österreich',
-      'Polen',
-      'Portugal',
-      'Rumänien',
-      'Schweden',
-      'Slowakei',
-      'Slowenien',
-      'Spanien',
-      'Tschechien',
-      'Ungarn',
-      'Zypern',
+      'Belgien', 'Bulgarien', 'Dänemark', 'Deutschland', 'Estland', 'Finnland', 'Frankreich',
+      'Griechenland', 'Irland', 'Italien', 'Kroatien', 'Lettland', 'Litauen', 'Luxemburg',
+      'Malta', 'Niederlande', 'Österreich', 'Polen', 'Portugal', 'Rumänien', 'Schweden',
+      'Slowakei', 'Slowenien', 'Spanien', 'Tschechien', 'Ungarn', 'Zypern',
     ];
-    const originStats = { Lokal: 0, 'Kt. Aargau': 0, CH: 0, EU: 0, Übersee: 0 };
+    const originStats = { Lokal: 0, 'Regional': 0, CH: 0, EU: 0, Übersee: 0 };
     items.forEach((item: unknown) => {
       const it = item as any;
       if (it.origin === 'aus eigener Gemeinde oder Nachbargemeinde') originStats.Lokal++;
-      else if (it.origin === 'Kanton Aargau') originStats['Kt. Aargau']++;
+      else if (it.origin === 'Kanton Aargau') originStats['Regional']++;
       else if (it.origin === 'Schweiz') originStats.CH++;
       else if (it.origin === 'Anderes Land') {
         if (it.origin_detail && EU_COUNTRIES.some((c) => it.origin_detail.includes(c)))
@@ -314,27 +326,12 @@ export default function DashboardPage() {
     });
     return [
       { name: 'Lokal', value: originStats.Lokal, color: '#10B981' },
-      { name: 'Kt. Aargau', value: originStats['Kt. Aargau'], color: '#3B82F6' },
+      { name: 'Regional', value: originStats['Regional'], color: '#3B82F6' },
       { name: 'CH', value: originStats.CH, color: '#F59E0B' },
       { name: 'EU', value: originStats.EU, color: '#6366F1' },
       { name: 'Übersee', value: originStats.Übersee, color: '#EF4444' },
     ];
   }
-
-  const firstSessionItems = firstSession
-    ? kitchenItems.filter((item: unknown) => {
-        const it = item as any;
-        const fs = firstSession as any;
-        return it.session_id === fs.id;
-      })
-    : [];
-  const secondSessionItems = secondSession
-    ? kitchenItems.filter((item: unknown) => {
-        const it = item as any;
-        const ss = secondSession as any;
-        return it.session_id === ss.id;
-      })
-    : [];
   const firstOriginChartData = getOriginChartData(firstSessionItems);
   const secondOriginChartData = getOriginChartData(secondSessionItems);
 
@@ -345,6 +342,25 @@ export default function DashboardPage() {
   function closeItemsModal() {
     setShowItemsModal(false);
     setModalSession(null);
+  }
+
+  // Helper to get session and state for a milestone
+  function getMilestoneState(milestone: number) {
+    const session = kitchenCheckSessions.find((s: any) => s.milestone === milestone);
+    if (!session) {
+      return { state: 'not_started', session: null };
+    }
+    const items = kitchenItems.filter((item) => item.session_id === session.id);
+    const categories = new Set(items.map((i) => i.category));
+    const requiredItems = 10; // Both milestones require 10 items
+    const isCompleted = !!session.completed_at && items.length >= requiredItems && categories.size >= 5;
+    if (isCompleted) {
+      return { state: 'completed', session };
+    }
+    if (items.length > 0) {
+      return { state: 'in_progress', session };
+    }
+    return { state: 'not_started', session };
   }
 
   return (
@@ -359,19 +375,15 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <Card className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Küchen-Checks insgesamt</h3>
-              <p className="text-3xl font-bold text-blue-600">{completedKitchenChecks}</p>
-              {inProgressCheck && (
-                <div className="flex flex-col gap-2 mt-2">
-                  <span className="text-sm text-yellow-700">Küchen-Check in Bearbeitung ({inProgressCount}/20 Einträge)</span>
-                  <span className="text-sm text-gray-600">Letzter Check: {formatDate(lastCompletedCheckDate)}</span>
-                  <button
-                    className="px-4 py-2 rounded bg-blue-600 text-white text-base font-semibold hover:bg-blue-700 transition w-full sm:w-auto mt-2"
-                    onClick={() => router.push('/kitchen-check/')}
-                  >
-                    Fortsetzen
-                  </button>
-                </div>
-              )}
+              <p className="text-3xl font-bold text-blue-600">{completedKitchenCheckSessions.length}</p>
+              <p className="text-sm text-gray-600">{
+                (() => {
+                  const completed = completedKitchenCheckSessions.length;
+                  if (completed === 0) return '0% abgeschlossen';
+                  if (completed === 1) return '50% abgeschlossen';
+                  if (completed >= 2) return '100% abgeschlossen';
+                })()
+              }</p>
             </Card>
 
             <Card className="p-6">
@@ -389,110 +401,408 @@ export default function DashboardPage() {
             </Card>
           </div>
 
+          {/* Milestones and Pie Chart side by side */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <Card className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Projekt-Meilensteine</h3>
+              {/* Küchen-Check 1 */}
+              {(() => {
+                const { state, session } = getMilestoneState(1);
+                if (state === 'completed') {
+                  return milestoneStatus(
+                    true,
+                    session?.completed_at ? new Date(session.completed_at) : undefined,
+                    'Küchen-Check 1 (Tag 1)',
+                    undefined,
+                    true,
+                    session,
+                    undefined,
+                    true // showCheckAnsehenButton
+                  );
+                } else if (state === 'in_progress') {
+                  return milestoneStatus(
+                    false,
+                    undefined,
+                    'Küchen-Check 1 (Tag 1)',
+                    () => router.push(`/kitchen-check/?sessionId=${session.id}`),
+                    true,
+                    session,
+                    'Fortsetzen',
+                    false
+                  );
+                } else {
+                  return milestoneStatus(
+                    false,
+                    undefined,
+                    'Küchen-Check 1 (Tag 1)',
+                    async () => {
+                      if (!user) return;
+                      // Create new session for milestone 1 and redirect
+                      setLoading(true);
+                      const { data, error } = await supabase
+                        .from('kitchen_check_sessions')
+                        .insert({ user_id: user.id, milestone: 1 })
+                        .select();
+                      setLoading(false);
+                      if (data && data[0]) {
+                        router.push(`/kitchen-check/?sessionId=${data[0].id}`);
+                      }
+                    },
+                    true,
+                    null,
+                    'Jetzt starten',
+                    false
+                  );
+                }
+              })()}
+
+              {/* Mini-Challenge Milestone */}
+              {(() => {
+                const total = Array.isArray(challengesData) ? challengesData.length : 0;
+                const completed = challengeProgress.filter((c: any) => c.completed).length;
+                let label = 'Jetzt starten';
+                if (completed > 0 && completed < total) label = 'Fortsetzen';
+                if (completed === total && total > 0) label = 'Ansehen';
+                const done = completed === total && total > 0;
+                return milestoneStatus(
+                  done,
+                  undefined,
+                  `Mini-Challenges (Tag 1-29)`,
+                  !done ? () => router.push('/mini-challenges') : undefined,
+                  false,
+                  undefined,
+                  label,
+                  false // never show Check ansehen button
+                );
+              })()}
+
+              {/* Küchen-Check 2 */}
+              {(() => {
+                const { state, session } = getMilestoneState(2);
+                if (state === 'completed') {
+                  return milestoneStatus(
+                    true,
+                    session?.completed_at ? new Date(session.completed_at) : undefined,
+                    'Küchen-Check 2 (Tag 29)',
+                    undefined,
+                    false,
+                    session,
+                    undefined,
+                    true // showCheckAnsehenButton
+                  );
+                } else if (state === 'in_progress') {
+                  return milestoneStatus(
+                    false,
+                    undefined,
+                    'Küchen-Check 2 (Tag 29)',
+                    () => router.push(`/kitchen-check/?sessionId=${session.id}`),
+                    false,
+                    session,
+                    'Fortsetzen',
+                    false
+                  );
+                } else {
+                  return milestoneStatus(
+                    false,
+                    undefined,
+                    'Küchen-Check 2 (Tag 29)',
+                    async () => {
+                      if (!user) return;
+                      // Create new session for milestone 2 and redirect
+                      setLoading(true);
+                      const { data, error } = await supabase
+                        .from('kitchen_check_sessions')
+                        .insert({ user_id: user.id, milestone: 2 })
+                        .select();
+                      setLoading(false);
+                      if (data && data[0]) {
+                        router.push(`/kitchen-check/?sessionId=${data[0].id}`);
+                      }
+                    },
+                    false,
+                    null,
+                    'Jetzt starten',
+                    false
+                  );
+                }
+              })()}
+              {/* Beobachtungsfragen milestone: only show button if not completed */}
               {milestoneStatus(
-                !!kitchenCheck1,
-                kitchenCheck1,
-                'Küchen-Check 1 (Tag 1)',
-                () => router.push('/kitchen-check/'),
-                true,
-                firstSession,
-              )}
-              {milestoneStatus(
-                !!kitchenCheck2,
-                kitchenCheck2,
-                'Küchen-Check 2 (Tag 29)',
-                () => router.push('/kitchen-check/'),
+                !!surveyDone,
+                surveyDone,
+                'Beobachtungsfragen (Tag 29)',
+                !surveyDone ? () => router.push('/observations') : undefined,
                 false,
-                secondSession,
-              )}
-              {milestoneStatus(!!surveyDone, surveyDone, 'Abschluss-Umfrage (Tag 29)', () =>
-                router.push('/observations'),
+                undefined,
+                undefined,
+                false // never show Check ansehen button
               ) as React.ReactNode}
             </Card>
 
+            {/* Pie Chart - Herkunft der Lebensmittel */}
             <Card className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                Herkunft der Lebensmittel{' '}
-                {secondSession ? '(Küchen-Check 1 & 2)' : '(Küchen-Check 1)'}
+                Herkunft der Lebensmittel aus Küchen-Checks
               </h3>
-              {firstSession ? (
-                <div
-                  className={`flex ${secondSession ? 'flex-col md:flex-row gap-8' : 'flex-col'}`}
-                >
-                  <div className="flex-1">
-                    <p className="text-sm text-gray-700 mb-2 font-semibold">Küchen-Check 1</p>
-                    <ResponsiveContainer width="100%" height={250}>
+              <div className={`flex flex-col md:flex-row gap-8`}>
+                {/* Pie chart for Küchen-Check 1 */}
+                <div className="flex-1">
+                  <p className="text-sm text-gray-700 mb-2 font-semibold">Küchen-Check 1</p>
+                  {firstSession && firstSessionItems.length > 0 ? (
+                    <ResponsiveContainer width="100%" height={240}>
                       <PieChart>
                         <Pie
                           data={firstOriginChartData}
                           cx="50%"
                           cy="50%"
-                          labelLine={false}
-                          label={({ name, percent }) =>
-                            `${name} ${percent ? (percent * 100).toFixed(0) : 0}%`
-                          }
+                          labelLine={({ cx, cy, midAngle, outerRadius, percent, index, payload }) => {
+                            // Only render connector line if percent > 0
+                            if (!percent || percent === 0) return <g />;
+                            const RADIAN = Math.PI / 180;
+                            const angle = midAngle ?? 0;
+                            const sx = cx + outerRadius * Math.cos(-angle * RADIAN);
+                            const sy = cy + outerRadius * Math.sin(-angle * RADIAN);
+                            const mx = cx + (outerRadius + 8) * Math.cos(-angle * RADIAN);
+                            const my = cy + (outerRadius + 8) * Math.sin(-angle * RADIAN);
+                            return (
+                              <polyline
+                                stroke="#222"
+                                strokeWidth={2}
+                                fill="none"
+                                points={`${sx},${sy} ${mx},${my}`}
+                              />
+                            );
+                          }}
+                          label={({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+                            if (!percent || percent === 0) return null;
+                            const RADIAN = Math.PI / 180;
+                            const angle = midAngle ?? 0;
+                            const radius = outerRadius + 12;
+                            const x = cx + radius * Math.cos(-angle * RADIAN);
+                            const y = cy + radius * Math.sin(-angle * RADIAN);
+                            return (
+                              <text
+                                x={x}
+                                y={y}
+                                fill="#222"
+                                textAnchor={x > cx ? 'start' : 'end'}
+                                dominantBaseline="central"
+                                fontWeight={600}
+                                fontSize={16}
+                              >
+                                {percent ? (percent * 100).toFixed(0) : 0}%
+                              </text>
+                            );
+                          }}
                           outerRadius={80}
                           fill="#8884d8"
                           dataKey="value"
-                          animationDuration={1000}
+                          animationDuration={100}
                         >
-                          {firstOriginChartData.map((entry, index) => (
+                          {firstOriginChartData.map((entry: any, index: number) => (
                             <Cell key={`cell-origin1-${index}`} fill={entry.color} />
                           ))}
                         </Pie>
                         <Tooltip />
                       </PieChart>
                     </ResponsiveContainer>
-                  </div>
-                  {secondSession && (
-                    <div className="flex-1">
-                      <p className="text-sm text-gray-700 mb-2 font-semibold">Küchen-Check 2</p>
-                      <ResponsiveContainer width="100%" height={250}>
-                        <PieChart>
-                          <Pie
-                            data={secondOriginChartData}
-                            cx="50%"
-                            cy="50%"
-                            labelLine={false}
-                            label={({ name, percent }) =>
-                              `${name} ${percent ? (percent * 100).toFixed(0) : 0}%`
-                            }
-                            outerRadius={80}
-                            fill="#8884d8"
-                            dataKey="value"
-                            animationDuration={1000}
-                          >
-                            {secondOriginChartData.map((entry, index) => (
-                              <Cell key={`cell-origin2-${index}`} fill={entry.color} />
-                            ))}
-                          </Pie>
-                          <Tooltip />
-                        </PieChart>
-                      </ResponsiveContainer>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center h-56 text-gray-400">
+                      <svg
+                        className="w-16 h-16 mb-2"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M8 12h.01M12 16h.01M16 12h.01" />
+                      </svg>
+                      <p className="text-lg">Noch keine Einträge</p>
                     </div>
                   )}
                 </div>
-              ) : (
-                <div className="flex flex-col items-center justify-center h-56 text-gray-400">
-                  <svg
-                    className="w-16 h-16 mb-2"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M8 12h.01M12 16h.01M16 12h.01" />
-                  </svg>
-                  <p className="text-lg">Noch kein Küchen-Check abgeschlossen</p>
-                  <p className="text-sm">
-                    Starte deinen ersten Check, um die Herkunft deiner Lebensmittel zu sehen.
-                  </p>
+                {/* Pie chart for Küchen-Check 2 */}
+                <div className="flex-1">
+                  <p className="text-sm text-gray-700 mb-2 font-semibold">Küchen-Check 2</p>
+                  {secondSession && secondSessionItems.length > 0 ? (
+                    <ResponsiveContainer width="100%" height={240}>
+                      <PieChart>
+                        <Pie
+                          data={secondOriginChartData}
+                          cx="50%"
+                          cy="50%"
+                          labelLine={({ cx, cy, midAngle, outerRadius, percent, index, payload }) => {
+                            if (!percent || percent === 0) return <g />;
+                            const RADIAN = Math.PI / 180;
+                            const angle = midAngle ?? 0;
+                            const sx = cx + outerRadius * Math.cos(-angle * RADIAN);
+                            const sy = cy + outerRadius * Math.sin(-angle * RADIAN);
+                            const mx = cx + (outerRadius + 8) * Math.cos(-angle * RADIAN);
+                            const my = cy + (outerRadius + 8) * Math.sin(-angle * RADIAN);
+                            return (
+                              <polyline
+                                stroke="#222"
+                                strokeWidth={2}
+                                fill="none"
+                                points={`${sx},${sy} ${mx},${my}`}
+                              />
+                            );
+                          }}
+                          label={({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+                            if (!percent || percent === 0) return null;
+                            const RADIAN = Math.PI / 180;
+                            const angle = midAngle ?? 0;
+                            const radius = outerRadius + 12;
+                            const x = cx + radius * Math.cos(-angle * RADIAN);
+                            const y = cy + radius * Math.sin(-angle * RADIAN);
+                            return (
+                              <text
+                                x={x}
+                                y={y}
+                                fill="#222"
+                                textAnchor={x > cx ? 'start' : 'end'}
+                                dominantBaseline="central"
+                                fontWeight={600}
+                                fontSize={16}
+                              >
+                                {percent ? (percent * 100).toFixed(0) : 0}%
+                              </text>
+                            );
+                          }}
+                          outerRadius={80}
+                          fill="#8884d8"
+                          dataKey="value"
+                          animationDuration={100}
+                        >
+                          {secondOriginChartData.map((entry: any, index: number) => (
+                            <Cell key={`cell-origin2-${index}`} fill={entry.color} />
+                          ))}
+                        </Pie>
+                        <Tooltip />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center h-56 text-gray-400">
+                      <svg
+                        className="w-16 h-16 mb-2"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M8 12h.01M12 16h.01M16 12h.01" />
+                      </svg>
+                      <p className="text-lg">Noch keine Einträge</p>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
+              {/* Legend below pie charts */}
+              <div className="flex flex-wrap justify-center gap-4 mt-10">
+                {firstOriginChartData.map((entry: any, idx: number) => (
+                  <div key={entry.name} className="flex items-center gap-2">
+                    <span className="inline-block w-4 h-4 rounded-full" style={{ background: entry.color }}></span>
+                    <span className="text-sm text-gray-800">{entry.name}</span>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </div>
+
+          {/* User-specific Bar Chart - full width below milestones and pie chart */}
+          <div className="mt-8">
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Lebensmittel pro Kategorie</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart
+                  data={(() => {
+                    // Build user-specific category stats
+                    const categoryStats: Record<string, number> = {};
+                    kitchenItems.forEach((item) => {
+                      if (item.category) categoryStats[item.category] = (categoryStats[item.category] || 0) + 1;
+                    });
+                    // Use the same color logic as project dashboard
+                    const COLORS = [
+                      '#10B981', '#3B82F6', '#F59E0B', '#6366F1', '#EF4444',
+                      '#8B5CF6', '#06B6D4', '#F472B6', '#F87171', '#34D399',
+                    ];
+                    return Object.entries(categoryStats).map(([name, value], i) => ({
+                      name,
+                      value,
+                      color: COLORS[i % COLORS.length],
+                    }));
+                  })()}
+                  margin={{ top: 20, right: 30, left: 0, bottom: 40 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="name"
+                    angle={-30}
+                    textAnchor="end"
+                    interval={0}
+                    tick={{ fill: '#000', fontWeight: 500 }}
+                    height={60}
+                  />
+                  <YAxis allowDecimals={false} tick={{ fill: '#000', fontWeight: 500 }} />
+                  <Tooltip
+                    content={({ active, payload, label }) => {
+                      if (active && payload && payload.length) {
+                        return (
+                          <div className="bg-white p-2 rounded shadow border">
+                            <div className="font-semibold text-black mb-1">{label}</div>
+                            <div className="text-black">Anzahl: {payload[0].value}</div>
+                          </div>
+                        );
+                      }
+                      return null;
+                    }}
+                  />
+                  <Bar dataKey="value">
+                    {(() => {
+                      // Build user-specific category stats again for color mapping
+                      const categoryStats: Record<string, number> = {};
+                      kitchenItems.forEach((item) => {
+                        if (item.category) categoryStats[item.category] = (categoryStats[item.category] || 0) + 1;
+                      });
+                      const COLORS = [
+                        '#10B981', '#3B82F6', '#F59E0B', '#6366F1', '#EF4444',
+                        '#8B5CF6', '#06B6D4', '#F472B6', '#F87171', '#34D399',
+                      ];
+                      const total = Object.values(categoryStats).reduce((sum, v) => sum + v, 0);
+                      return Object.entries(categoryStats).map(([,], i) => (
+                        <Cell key={`cell-cat-${i}`} fill={COLORS[i % COLORS.length]} />
+                      ));
+                    })()}
+                    <LabelList
+                      dataKey="value"
+                      position="top"
+                      content={({ x, y, width, value }) => {
+                        // Calculate total for percentage
+                        const categoryStats: Record<string, number> = {};
+                        kitchenItems.forEach((item) => {
+                          if (item.category) categoryStats[item.category] = (categoryStats[item.category] || 0) + 1;
+                        });
+                        const total = Object.values(categoryStats).reduce((sum, v) => sum + v, 0);
+                        const percent = total > 0 ? Math.round((Number(value) / total) * 100) : 0;
+                        return (
+                          <text
+                            x={Number(x) + Number(width) / 2}
+                            y={Number(y) - 8}
+                            textAnchor="middle"
+                            fill="#222"
+                            fontSize={14}
+                            fontWeight={600}
+                          >
+                            {percent}%
+                          </text>
+                        );
+                      }}
+                    />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
             </Card>
           </div>
 
@@ -561,7 +871,7 @@ export default function DashboardPage() {
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {String(kitchenItems.filter((i: any) => i.session_id === (modalSession as any).id).length)})
               </h2>
-              <div className="max-h-96 overflow-y-auto">
+              <div className="max-h-96 overflow-y-auto mb-4">
                 {kitchenItems.filter((i: any) => i.session_id === (modalSession as any).id).length === 0 ? (
                   <div className="text-gray-500">Keine Einträge gefunden.</div>
                 ) : (
@@ -596,6 +906,17 @@ export default function DashboardPage() {
                       })}
                   </div>
                 )}
+              </div>
+              <div className="flex justify-center">
+                <button
+                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold"
+                  onClick={() => {
+                    closeItemsModal();
+                    router.push(`/kitchen-check/?sessionId=${(modalSession as any).id}`);
+                  }}
+                >
+                  Weitere Einträge hinzufügen
+                </button>
               </div>
             </div>
           </div>

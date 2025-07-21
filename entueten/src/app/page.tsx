@@ -29,11 +29,10 @@ export default function Home() {
       <div className="container mx-auto px-4 py-16">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
-            Willkommen bei <span className="text-green-600">Entüten</span>
+            Willkommen bei <span className="text-green-600">Eintüten</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8">
-            Dokumentiere deine nachhaltigen Lebensmittelentscheidungen, schließe Herausforderungen
-            ab und leiste einen positiven Beitrag für die Umwelt.
+          Dokumentiere die Herkunft deiner Lebensmittel, schliesse Herausforderungen zur regionalen und saisonalen Ernährung ab und leiste einen postitiven Beitrag für die Umwelt.
           </p>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -41,7 +40,7 @@ export default function Home() {
               <div className="text-3xl mb-4">🥗</div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Küchen-Check</h3>
               <p className="text-gray-600">
-                Dokumentiere deinen Lebensmittelvorrat und verfolge Nachhaltigkeitsmetriken
+              Dokumentiere deinen Lebensmittelvorrat und erhalte eine individuelle Auswertung.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -56,7 +55,7 @@ export default function Home() {
               <div className="text-3xl mb-4">📊</div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Beobachtungen</h3>
               <p className="text-gray-600">
-                Teile deine Erkenntnisse und verfolge deinen Fortschritt im Laufe der Zeit
+              Halte deine Erkenntnisse fest und verfolge deinen Fortschritt
               </p>
             </div>
           </div>

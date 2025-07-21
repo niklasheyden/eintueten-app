@@ -224,8 +224,7 @@ export default function ObservationsPage() {
                 <div className="text-6xl mb-4">🎉</div>
                 <h1 className="text-3xl font-bold text-gray-900 mb-4">Umfrage abgeschlossen!</h1>
                 <p className="text-gray-600 mb-6">
-                  Vielen Dank für deine Antworten. Deine Rückmeldungen helfen uns, nachhaltige
-                  Essgewohnheiten besser zu verstehen.
+                Vielen Dank für deine Antworten. Deine Rückmeldung hilft uns, den Stellenwert von Regionalität und Saisonalität in der Ernährung besser zu verstehen.
                 </p>
 
                 <div className="grid grid-cols-2 gap-4 mb-6">

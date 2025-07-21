@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { Navbar } from '@/components/Navbar';
 import { Card } from '@/components/Card';
@@ -23,15 +23,19 @@ interface Municipality {
 
 const predefinedGroceries = [
   'Tomaten',
-  'Brot',
+  'Mehl',
+  'Äpfel',
+  'Kartoffeln',
+  'Olivenöl',
+  'Eier',
   'Milch',
   'Käse',
   'Äpfel',
   'Kartoffeln',
+  'Teigwaren/Nudeln',
   'Butter',
   'Joghurt',
   'Karotten',
-  'Eier',
   'Reis',
   'Bananen',
   'Fleisch',
@@ -46,11 +50,14 @@ const predefinedGroceries = [
   'Kichererbsen',
   'Haferflocken',
   'Müsli',
+  'Poulet/Geflügel',
   'Schokolade',
   'Kaffee',
   'Tee',
   'Wurst',
   'Quark',
+  'Rindfleisch',
+  'Schweinefleisch',
   'Sahne',
   'Spinat',
   'Pilze',
@@ -60,7 +67,6 @@ const predefinedGroceries = [
   'Mandarinen',
   'Honig',
   'Marmelade',
-  'Nudeln',
   'Couscous',
   'Polenta',
   'Mais',
@@ -85,13 +91,13 @@ const predefinedGroceries = [
 ];
 const categories = [
   { key: 'Früchte', label: 'Früchte', icon: '🍎' },
-  { key: 'Gemüse', label: 'Gemüse', icon: '🥦' },
+  { key: 'Gemüse', label: 'Gemüse & Kräuter', icon: '🥦' },
   { key: 'Milchprodukte', label: 'Milchprodukte', icon: '🥛' },
   { key: 'Eier', label: 'Eier', icon: '🥚' },
   { key: 'Fleisch', label: 'Fleisch', icon: '🥩' },
-  { key: 'Fisch und Meeresfrüchte', label: 'Fisch & Meer', icon: '🐟' },
-  { key: 'Getreideprodukte', label: 'Getreide', icon: '🍞' },
-  { key: 'Hülsenfrüchte (inkl. Tofu)', label: 'Hülsenfrüchte', icon: '🌱' },
+  { key: 'Fisch und Meeresfrüchte', label: 'Fisch & Meeresfrüchte', icon: '🐟' },
+  { key: 'Getreideprodukte', label: 'Getreide & Stärkebeilagen', icon: '🍚' },
+  { key: 'Hülsenfrüchte (inkl. Tofu)', label: 'Hülsenfrüchte inkl. Tofu', icon: '🌱' },
   { key: 'Nüsse und Samen', label: 'Nüsse & Samen', icon: '🥜' },
   { key: 'Öle und Fette', label: 'Öle & Fette', icon: '🫒' },
   { key: 'Andere', label: 'Andere', icon: '🛒' },
@@ -344,6 +350,7 @@ const priorityCountryList = [
 export default function KitchenCheckForm() {
   const { user } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [items, setItems] = useState<any[]>([]);
   const [currentItem, setCurrentItem] = useState<any>({
     name: '',
@@ -352,10 +359,14 @@ export default function KitchenCheckForm() {
     origin_detail: '',
     label: '',
     purchase_location: '',
+    purchase_location_detail: '',
   });
   const [showEnoughMessage, setShowEnoughMessage] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
+  const [showCompletedAnimation, setShowCompletedAnimation] = useState(false);
+  const completedAnimationShownRef = useRef(false);
   const [grocerySearch, setGrocerySearch] = useState('');
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [countrySearch, setCountrySearch] = useState('');
@@ -366,8 +377,9 @@ export default function KitchenCheckForm() {
   const municipalityInputRef = useRef<HTMLInputElement>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
 
-  // For demonstration, set milestone to 2 (in real use, determine by date or prop)
-  const milestone = 2;
+  // Get session ID from URL parameter or default to milestone 2
+  const urlSessionId = searchParams?.get('sessionId');
+  const milestone = urlSessionId ? null : 2; // If sessionId is provided, don't use milestone
 
   // Fetch items from Supabase on mount or when sessionId changes
   useEffect(() => {
@@ -391,11 +403,17 @@ export default function KitchenCheckForm() {
     fetchItems();
   }, [user, sessionId]);
 
-  // On mount, ensure there is an open session for the current milestone
+  // On mount, ensure there is an open session for the current milestone or use provided session ID
   useEffect(() => {
     if (!user) return;
     const ensureSession = async () => {
-      // Check for open session for this milestone
+      // If URL session ID is provided, use it directly
+      if (urlSessionId) {
+        setSessionId(urlSessionId);
+        return;
+      }
+      
+      // Otherwise, check for open session for this milestone
       const { data: sessions, error } = await supabase
         .from('kitchen_check_sessions')
         .select('*')
@@ -418,7 +436,7 @@ export default function KitchenCheckForm() {
       }
     };
     ensureSession();
-  }, [user, milestone]);
+  }, [user, milestone, urlSessionId]);
 
   useEffect(() => {
     if (!showCountrySuggestions) return;
@@ -431,16 +449,27 @@ export default function KitchenCheckForm() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [showCountrySuggestions]);
 
-  // Progress bar calculation (now based on items out of 20)
-  const itemProgress = Math.min(items.length, 20);
+  // Progress bar calculation (now based on items out of 10)
+  const itemProgress = Math.min(items.length, 10);
 
   // Calculate unique categories progress
   const uniqueCategories = Array.from(new Set(items.map((i) => i.category))).filter(Boolean);
   const categoryProgress = Math.min(uniqueCategories.length, 5);
 
-  // Validation for 20 items from 5 categories
+  // Validation for 10 items from 5 categories
   const categoriesSet = new Set(items.map((i) => i.category));
-  const enoughItems = items.length >= 20 && categoriesSet.size >= 5;
+  const enoughItems = items.length >= 10 && categoriesSet.size >= 5;
+
+  // Show completed animation when enoughItems becomes true for the first time
+  useEffect(() => {
+    if (enoughItems && !completedAnimationShownRef.current) {
+      setShowCompletedAnimation(true);
+      completedAnimationShownRef.current = true;
+    }
+    if (!enoughItems) {
+      completedAnimationShownRef.current = false;
+    }
+  }, [enoughItems]);
 
   const resetCurrentItem = () => {
     setCurrentItem({
@@ -450,6 +479,7 @@ export default function KitchenCheckForm() {
       origin_detail: '',
       label: '',
       purchase_location: '',
+      purchase_location_detail: '',
     });
     setMunicipalitySearch('');
     setCountrySearch('');
@@ -501,6 +531,7 @@ export default function KitchenCheckForm() {
             origin_detail: currentItem.origin_detail,
             label: currentItem.label,
             purchase_location: currentItem.purchase_location,
+            purchase_location_detail: currentItem.purchase_location_detail,
             session_id: sessionId,
           })
           .eq('id', item.id)
@@ -532,6 +563,7 @@ export default function KitchenCheckForm() {
         origin_detail: currentItem.origin_detail,
         label: currentItem.label,
         purchase_location: currentItem.purchase_location,
+        purchase_location_detail: currentItem.purchase_location_detail,
         session_id: sessionId,
       })
       .select();
@@ -546,11 +578,14 @@ export default function KitchenCheckForm() {
       setGrocerySearch('');
       if (
         !showEnoughMessage &&
-        items.length + 1 >= 20 &&
+        items.length + 1 >= 10 &&
         new Set([...categoriesSet, currentItem.category]).size >= 5
       ) {
         setShowEnoughMessage(true);
       }
+      // Show success animation
+      setShowSuccessAnimation(true);
+      setTimeout(() => setShowSuccessAnimation(false), 2000);
     }
     setLoading(false);
   };
@@ -619,13 +654,13 @@ export default function KitchenCheckForm() {
             >
               <div className="flex items-center justify-between mb-1">
                 <span className="text-sm font-bold text-gray-900">
-                  {items.length < 20
-                    ? `${items.length} von 20 Einträgen hinzugefügt`
+                  {items.length < 10
+                    ? `${items.length} von 10 Einträgen hinzugefügt`
                     : `${items.length} Einträge hinzugefügt`}
                 </span>
               </div>
               <div className="flex w-full gap-0.5 mb-1">
-                {[...Array(20)].map((_, idx) => (
+                {[...Array(10)].map((_, idx) => (
                   <div
                     key={idx}
                     className={`flex-1 h-2 rounded ${idx < items.length ? 'bg-blue-600' : 'bg-gray-200'} transition-all duration-300`}
@@ -669,7 +704,7 @@ export default function KitchenCheckForm() {
                 </div>
                 {/* Tag-style suggestions */}
                 <div className="flex flex-wrap gap-2 mt-2">
-                  {filteredGroceries.slice(0, 8).map((g) => (
+                  {filteredGroceries.slice(0, 15).map((g) => (
                     <button
                       type="button"
                       key={g}
@@ -776,7 +811,7 @@ export default function KitchenCheckForm() {
               ) : (
                 <div>
                   <label className="block text-gray-900 font-medium mb-1">
-                    Hast du bei CH Produkten die genaue Ortsangabe? (Gemeindename oder PLZ)
+                    Hast du bei CH Produkten die genaue Ortsangabe? (Gemeindename oder PLZ) (optional)
                   </label>
                   <div className="relative" ref={municipalityInputRef}>
                     <input
@@ -850,21 +885,62 @@ export default function KitchenCheckForm() {
               {/* Row 6: Einkaufsort */}
               <div>
                 <label className="block text-gray-900 font-medium mb-1">
-                  Einkaufsort eingeben (optional)
+                  Einkaufsort (optional)
                 </label>
-                <Input
-                  type="text"
-                  className="border rounded px-3 py-2 w-full text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 appearance-none"
-                  placeholder="Einkaufsort"
-                  value={currentItem.purchase_location}
-                  onChange={(e) =>
-                    setCurrentItem({ ...currentItem, purchase_location: e.target.value })
-                  }
-                />
+                <div className="relative">
+                  <select
+                    className="border rounded px-3 py-2 w-full text-gray-900 bg-white appearance-none pr-10 focus:ring-2 focus:ring-blue-500"
+                    value={currentItem.purchase_location}
+                    onChange={(e) => setCurrentItem({ ...currentItem, purchase_location: e.target.value })}
+                  >
+                    <option value="">Einkaufsort wählen</option>
+                    <option value="Migros">Migros</option>
+                    <option value="Coop">Coop</option>
+                    <option value="Lidl">Lidl</option>
+                    <option value="Aldi">Aldi</option>
+                    <option value="Hofladen">Hofladen</option>
+                    <option value="Markt">Markt</option>
+                    <option value="Volg">Volg</option>
+                    <option value="Denner">Denner</option>
+                    <option value="Abonnement">Abonnement</option>
+                    <option value="Internet">Internet</option>
+                    <option value="Andere">Andere</option>
+                  </select>
+                  <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </span>
+                </div>
+                
+                {/* Custom purchase location input when "Andere" is selected */}
+                {currentItem.purchase_location === 'Andere' && (
+                  <div className="mt-3">
+                    <label className="block text-gray-900 font-medium mb-1">
+                      Bitte spezifizieren (optional)
+                    </label>
+                    <Input
+                      type="text"
+                      className="border rounded px-3 py-2 w-full text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 appearance-none"
+                      placeholder="z.B. Bioladen, Hofladen, etc."
+                      value={currentItem.purchase_location_detail || ''}
+                      onChange={(e) =>
+                        setCurrentItem({ ...currentItem, purchase_location_detail: e.target.value })
+                      }
+                    />
+                  </div>
+                )}
               </div>
-              <div className="flex justify-end mt-4">
+              <div className="mt-6">
                 <Button
                   type="submit"
+                  className="!w-full px-8 py-4 text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
                   disabled={
                     loading || !currentItem.name || !currentItem.category || !currentItem.origin
                   }
@@ -873,31 +949,115 @@ export default function KitchenCheckForm() {
                 </Button>
               </div>
             </form>
+            
+            {/* Success Animation */}
+            {showSuccessAnimation && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+                <div className="bg-white rounded-2xl p-6 shadow-2xl max-w-sm mx-4">
+                  <div className="flex flex-col items-center">
+                    <div className="flex items-center justify-center w-16 h-16 bg-green-500 rounded-full animate-bounce mb-4">
+                      <svg
+                        className="w-8 h-8 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-xl font-bold text-gray-900 mb-1">Hinzugefügt!</p>
+                      <p className="text-sm text-gray-600">Lebensmittel erfolgreich gespeichert</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {/* Completed Animation */}
+            {showCompletedAnimation && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+                <div className="bg-white rounded-2xl p-8 shadow-2xl max-w-sm mx-4 flex flex-col items-center">
+                  <div className="flex items-center justify-center w-24 h-24 bg-green-500 rounded-full mb-6 relative">
+                    <svg
+                      className="w-16 h-16 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l5 5L19 7"
+                      />
+                    </svg>
+                    {/* Confetti */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      {[...Array(18)].map((_, i) => (
+                        <span
+                          key={i}
+                          className={`absolute block w-2 h-2 rounded-full`}
+                          style={{
+                            left: `${50 + 40 * Math.cos((i / 18) * 2 * Math.PI)}%`,
+                            top: `${50 + 40 * Math.sin((i / 18) * 2 * Math.PI)}%`,
+                            background: [
+                              '#10B981', '#3B82F6', '#F59E0B', '#6366F1', '#EF4444',
+                              '#8B5CF6', '#06B6D4', '#F472B6', '#F87171', '#34D399',
+                            ][i % 10],
+                            opacity: 0.8,
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-green-700 mb-2">Küchen-Check abgeschlossen!</p>
+                    <p className="text-base text-gray-700">Du hast alle Anforderungen erfüllt 🎉</p>
+                  </div>
+                  <button
+                    className="mt-6 w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition"
+                    onClick={async () => {
+                      if (sessionId) {
+                        await supabase
+                          .from('kitchen_check_sessions')
+                          .update({ completed_at: new Date().toISOString() })
+                          .eq('id', sessionId);
+                      }
+                      setShowCompletedAnimation(false);
+                      router.push('/dashboard');
+                    }}
+                  >
+                    Zum Dashboard
+                  </button>
+                  <button
+                    className="mt-3 w-full px-6 py-3 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300 transition"
+                    onClick={async () => {
+                      if (sessionId) {
+                        await supabase
+                          .from('kitchen_check_sessions')
+                          .update({ completed_at: new Date().toISOString() })
+                          .eq('id', sessionId);
+                      }
+                      setShowCompletedAnimation(false);
+                    }}
+                  >
+                    Weitere Lebensmittel hinzufügen
+                  </button>
+                </div>
+              </div>
+            )}
           </Card>
           {showEnoughMessage && (
             <div className="bg-green-100 text-green-800 p-4 rounded mb-4 text-center font-semibold">
               Du hast genügend Einträge gemacht. Mehr Einträge sind möglich aber nicht erforderlich.
             </div>
           )}
-          {enoughItems && sessionId && (
-            <div className="flex justify-end mt-4">
-              <Button
-                type="button"
-                className="bg-green-600 hover:bg-green-700"
-                onClick={async () => {
-                  setLoading(true);
-                  await supabase
-                    .from('kitchen_check_sessions')
-                    .update({ completed_at: new Date().toISOString() })
-                    .eq('id', sessionId);
-                  setLoading(false);
-                  router.push('/dashboard');
-                }}
-              >
-                Fertigstellen
-              </Button>
-            </div>
-          )}
+          {/* Removed the separate Fertigstellen button; handled in modal now */}
           <Card className="p-6">
             <h2 className="text-lg font-semibold mb-2 text-gray-900">
               Bisherige Einträge ({items.length})

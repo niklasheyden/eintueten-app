@@ -1,80 +1,77 @@
 [
   {
     "id": 1,
-    "question": "Wie oft isst du Fleisch?",
+    "question": "Wie wichtig ist dir Regionalität bei deinem Einkauf?",
     "type": "multiple_choice",
-    "options": ["Täglich", "2-3 Mal pro Woche", "Einmal pro Woche", "Selten", "Nie"],
-    "category": "diet"
+    "options": ["Ist mir nicht wichtig", "Ist mir etwas wichtig", "Ist mir wichtige", "Ist mir sehr wichtig"],
+    "category": "Regionaliät"
   },
   {
     "id": 2,
-    "question": "Wo kaufst du normalerweise deine Lebensmittel ein?",
+    "question": "Wie wichtig ist dir Saisonalität bei deinem Einkauf?",
     "type": "multiple_choice",
-    "options": [
-      "Supermarkt",
-      "Lokaler Wochenmarkt",
-      "Bioladen",
-      "Online-Lieferung",
-      "Solidarische Landwirtschaft (SoLaWi)"
-    ],
-    "category": "shopping"
+    "options": ["Ist mir nicht wichtig", "Ist mir etwas wichtig", "Ist mir wichtige", "Ist mir sehr wichtig"],
+    "category": "Saisonalität"
   },
   {
     "id": 3,
-    "question": "Wie viel Lebensmittelabfall entsteht bei dir pro Woche?",
+    "question": "Wie oft achtest du beim Einkauf bewusst auf die Herkunft der Produkte?",
     "type": "multiple_choice",
     "options": [
-      "Kein Abfall – ich verwende alles",
-      "Weniger als 1 Tasse",
-      "1-2 Tassen",
-      "Mehr als 2 Tassen",
-      "Ich tracke das nicht"
+      "Ich achte nie darauf",
+      "Ich achte kaum darauf",
+      "Ich achte teilweise darauf",
+      "Ich achte oft darauf"
     ],
-    "category": "sustainability"
+    "category": "Herkunft"
   },
   {
     "id": 4,
-    "question": "Baust du selbst Lebensmittel an?",
+    "question": "Hat sich seit dem Beginn des Projektes dein Fokus auf regionale Lebensmittel beim Einkaufen verändert?",
     "type": "multiple_choice",
     "options": [
-      "Ja, ich habe einen Garten",
-      "Ja, ich ziehe Kräuter",
-      "Ja, ich habe ein paar Pflanzen",
-      "Nein, aber ich möchte gerne",
-      "Nein, kein Interesse"
+      "Ich schaue gleich wie vorher ",
+      "Ich beachte die Regionalität etwas mehr ",
+      "Ich beachte die Regionalität mehr als vorher ",
+      "Ich beachte die Regionalität sehr viel mehr als vorher"
     ],
-    "category": "gardening"
+    "category": "Verhalten"
   },
   {
     "id": 5,
-    "question": "Wie wichtig ist dir Bio-Lebensmittel?",
+    "question": "Hast du mit deinem Umfeld vermehrt über das Thema regionale und/oder saisonale Lebensmittel gesprochen?",
     "type": "multiple_choice",
     "options": [
-      "Sehr wichtig",
-      "Eher wichtig",
-      "Nicht so wichtig",
-      "Gar nicht wichtig"
+      "Nein",
+      "Mit wenigen Personen",
+      "Mit einigen Personen",
+      "Mit vielen Personen  "
     ],
-    "category": "preferences"
+    "category": "Bewusstsein"
   },
   {
     "id": 6,
-    "question": "Was ist deine größte Herausforderung beim nachhaltigen Essen?",
-    "type": "text",
-    "category": "challenges"
+    "question": "Ist es einfach, lokal und regional einzukaufen?",
+    "type": "multiple_choice",
+    "options": [
+      "Es ist schwierig",
+      "Teilweise ist es schwierig",
+      "Es ist eher einfach ",
+      "Es ist einfach"
+    ],
+    "category": "Verfügbarkeit"
   },
   {
     "id": 7,
-    "question": "Wie viel Zeit verbringst du pro Woche mit Kochen?",
+    "question": "Wie gut /einfach konntest du die Herkunft herausfinden?",
     "type": "multiple_choice",
-    "options": ["Weniger als 2 Stunden", "2-5 Stunden", "5-10 Stunden", "Mehr als 10 Stunden"],
-    "category": "cooking"
-  },
-  {
-    "id": 8,
-    "question": "Was motiviert dich, nachhaltiger zu essen?",
-    "type": "text",
-    "category": "motivation"
+    "options": [
+      "Nur bei sehr wenigen",
+      "Bei einigen Lebensmitteln",
+      "Bei vielen Lebensmitteln",
+      "Bei fast allen konnte ich es herausfinden"
+    ],
+    "category": "Transparenz"
   }
 ]
  
