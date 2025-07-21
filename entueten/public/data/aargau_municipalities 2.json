@@ -1,0 +1,1457 @@
+[
+  {
+    "id": 1,
+    "name": "Aarau",
+    "zip_codes": [
+      "5000",
+      "5001",
+      "5004",
+      "5032"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Aarburg",
+    "zip_codes": [
+      "4663"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Abtwil",
+    "zip_codes": [
+      "5646"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Ammerswil",
+    "zip_codes": [
+      "5600"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Aristau",
+    "zip_codes": [
+      "5628"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Arni (AG)",
+    "zip_codes": [
+      "8905"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Auenstein",
+    "zip_codes": [
+      "5105"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Auw",
+    "zip_codes": [
+      "5644"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Baden",
+    "zip_codes": [
+      "5400",
+      "5401",
+      "5402",
+      "5404",
+      "5405",
+      "5406"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Beinwil (Freiamt)",
+    "zip_codes": [
+      "5637"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Beinwil am See",
+    "zip_codes": [
+      "5712"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Bellikon",
+    "zip_codes": [
+      "5454"
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Bergdietikon",
+    "zip_codes": [
+      "8962"
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Berikon",
+    "zip_codes": [
+      "8965"
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Besenbüren",
+    "zip_codes": [
+      "5627"
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Bettwil",
+    "zip_codes": [
+      "5618"
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Biberstein",
+    "zip_codes": [
+      "5023"
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Birmenstorf (AG)",
+    "zip_codes": [
+      "5413"
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Birr",
+    "zip_codes": [
+      "5242"
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Birrhard",
+    "zip_codes": [
+      "5244"
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Birrwil",
+    "zip_codes": [
+      "5708"
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Boniswil",
+    "zip_codes": [
+      "5706"
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Boswil",
+    "zip_codes": [
+      "5623"
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Bottenwil",
+    "zip_codes": [
+      "4814"
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Bremgarten (AG)",
+    "zip_codes": [
+      "5620",
+      "5626"
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Brittnau",
+    "zip_codes": [
+      "4805"
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Brugg",
+    "zip_codes": [
+      "5116",
+      "5200",
+      "5201",
+      "5222"
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Brunegg",
+    "zip_codes": [
+      "5505"
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Buchs (AG)",
+    "zip_codes": [
+      "5033"
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Burg (AG)",
+    "zip_codes": [
+      "5736"
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Buttwil",
+    "zip_codes": [
+      "5632"
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Böttstein",
+    "zip_codes": [
+      "5314",
+      "5315"
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Bözberg",
+    "zip_codes": [
+      "5225"
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Böztal",
+    "zip_codes": [
+      "5075",
+      "5076",
+      "5077",
+      "5078"
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Bünzen",
+    "zip_codes": [
+      "5624"
+    ]
+  },
+  {
+    "id": 36,
+    "name": "Büttikon",
+    "zip_codes": [
+      "5619"
+    ]
+  },
+  {
+    "id": 37,
+    "name": "Densbüren",
+    "zip_codes": [
+      "5025",
+      "5026"
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Dietwil",
+    "zip_codes": [
+      "6042"
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Dintikon",
+    "zip_codes": [
+      "5606"
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Dottikon",
+    "zip_codes": [
+      "5605"
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Döttingen",
+    "zip_codes": [
+      "5312"
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Dürrenäsch",
+    "zip_codes": [
+      "5724"
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Eggenwil",
+    "zip_codes": [
+      "5445"
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Egliswil",
+    "zip_codes": [
+      "5704"
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Ehrendingen",
+    "zip_codes": [
+      "5420"
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Eiken",
+    "zip_codes": [
+      "5074"
+    ]
+  },
+  {
+    "id": 47,
+    "name": "Endingen",
+    "zip_codes": [
+      "5304",
+      "5305"
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Ennetbaden",
+    "zip_codes": [
+      "5408"
+    ]
+  },
+  {
+    "id": 49,
+    "name": "Erlinsbach (AG)",
+    "zip_codes": [
+      "5017",
+      "5018"
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Fahrwangen",
+    "zip_codes": [
+      "5615"
+    ]
+  },
+  {
+    "id": 51,
+    "name": "Fischbach-Göslikon",
+    "zip_codes": [
+      "5525"
+    ]
+  },
+  {
+    "id": 52,
+    "name": "Fisibach",
+    "zip_codes": [
+      "5467"
+    ]
+  },
+  {
+    "id": 53,
+    "name": "Fislisbach",
+    "zip_codes": [
+      "5442"
+    ]
+  },
+  {
+    "id": 54,
+    "name": "Freienwil",
+    "zip_codes": [
+      "5423"
+    ]
+  },
+  {
+    "id": 55,
+    "name": "Frick",
+    "zip_codes": [
+      "5070"
+    ]
+  },
+  {
+    "id": 56,
+    "name": "Full-Reuenthal",
+    "zip_codes": [
+      "5324"
+    ]
+  },
+  {
+    "id": 57,
+    "name": "Gansingen",
+    "zip_codes": [
+      "5272"
+    ]
+  },
+  {
+    "id": 58,
+    "name": "Gebenstorf",
+    "zip_codes": [
+      "5412"
+    ]
+  },
+  {
+    "id": 59,
+    "name": "Geltwil",
+    "zip_codes": [
+      "5637"
+    ]
+  },
+  {
+    "id": 60,
+    "name": "Gipf-Oberfrick",
+    "zip_codes": [
+      "5073"
+    ]
+  },
+  {
+    "id": 61,
+    "name": "Gontenschwil",
+    "zip_codes": [
+      "5728"
+    ]
+  },
+  {
+    "id": 62,
+    "name": "Gränichen",
+    "zip_codes": [
+      "5722"
+    ]
+  },
+  {
+    "id": 63,
+    "name": "Habsburg",
+    "zip_codes": [
+      "5245"
+    ]
+  },
+  {
+    "id": 64,
+    "name": "Hallwil",
+    "zip_codes": [
+      "5705"
+    ]
+  },
+  {
+    "id": 65,
+    "name": "Hausen (AG)",
+    "zip_codes": [
+      "5212"
+    ]
+  },
+  {
+    "id": 66,
+    "name": "Hellikon",
+    "zip_codes": [
+      "4316"
+    ]
+  },
+  {
+    "id": 67,
+    "name": "Hendschiken",
+    "zip_codes": [
+      "5604"
+    ]
+  },
+  {
+    "id": 68,
+    "name": "Herznach",
+    "zip_codes": [
+      "5027"
+    ]
+  },
+  {
+    "id": 69,
+    "name": "Hirschthal",
+    "zip_codes": [
+      "5042"
+    ]
+  },
+  {
+    "id": 70,
+    "name": "Holderbank (AG)",
+    "zip_codes": [
+      "5113"
+    ]
+  },
+  {
+    "id": 71,
+    "name": "Holziken",
+    "zip_codes": [
+      "5043"
+    ]
+  },
+  {
+    "id": 72,
+    "name": "Hunzenschwil",
+    "zip_codes": [
+      "5502"
+    ]
+  },
+  {
+    "id": 73,
+    "name": "Hägglingen",
+    "zip_codes": [
+      "5607"
+    ]
+  },
+  {
+    "id": 74,
+    "name": "Islisberg",
+    "zip_codes": [
+      "8905"
+    ]
+  },
+  {
+    "id": 75,
+    "name": "Jonen",
+    "zip_codes": [
+      "8916"
+    ]
+  },
+  {
+    "id": 76,
+    "name": "Kaiseraugst",
+    "zip_codes": [
+      "4303"
+    ]
+  },
+  {
+    "id": 77,
+    "name": "Kaisten",
+    "zip_codes": [
+      "5082",
+      "5083"
+    ]
+  },
+  {
+    "id": 78,
+    "name": "Kallern",
+    "zip_codes": [
+      "5625"
+    ]
+  },
+  {
+    "id": 79,
+    "name": "Killwangen",
+    "zip_codes": [
+      "8956"
+    ]
+  },
+  {
+    "id": 80,
+    "name": "Kirchleerau",
+    "zip_codes": [
+      "5054"
+    ]
+  },
+  {
+    "id": 81,
+    "name": "Klingnau",
+    "zip_codes": [
+      "5313"
+    ]
+  },
+  {
+    "id": 82,
+    "name": "Koblenz",
+    "zip_codes": [
+      "5322"
+    ]
+  },
+  {
+    "id": 83,
+    "name": "Kölliken",
+    "zip_codes": [
+      "5742"
+    ]
+  },
+  {
+    "id": 84,
+    "name": "Künten",
+    "zip_codes": [
+      "5444"
+    ]
+  },
+  {
+    "id": 85,
+    "name": "Küttigen",
+    "zip_codes": [
+      "5022",
+      "5024"
+    ]
+  },
+  {
+    "id": 86,
+    "name": "Laufenburg",
+    "zip_codes": [
+      "5080",
+      "5084",
+      "5085"
+    ]
+  },
+  {
+    "id": 87,
+    "name": "Leibstadt",
+    "zip_codes": [
+      "5325"
+    ]
+  },
+  {
+    "id": 88,
+    "name": "Leimbach (AG)",
+    "zip_codes": [
+      "5733"
+    ]
+  },
+  {
+    "id": 89,
+    "name": "Lengnau (AG)",
+    "zip_codes": [
+      "5426"
+    ]
+  },
+  {
+    "id": 90,
+    "name": "Lenzburg",
+    "zip_codes": [
+      "5600"
+    ]
+  },
+  {
+    "id": 91,
+    "name": "Leuggern",
+    "zip_codes": [
+      "5316",
+      "5317"
+    ]
+  },
+  {
+    "id": 92,
+    "name": "Leutwil",
+    "zip_codes": [
+      "5725"
+    ]
+  },
+  {
+    "id": 93,
+    "name": "Lupfig",
+    "zip_codes": [
+      "5242",
+      "5246"
+    ]
+  },
+  {
+    "id": 94,
+    "name": "Magden",
+    "zip_codes": [
+      "4312"
+    ]
+  },
+  {
+    "id": 95,
+    "name": "Mandach",
+    "zip_codes": [
+      "5318"
+    ]
+  },
+  {
+    "id": 96,
+    "name": "Meisterschwanden",
+    "zip_codes": [
+      "5616",
+      "5617"
+    ]
+  },
+  {
+    "id": 97,
+    "name": "Mellikon",
+    "zip_codes": [
+      "5465"
+    ]
+  },
+  {
+    "id": 98,
+    "name": "Mellingen",
+    "zip_codes": [
+      "5507"
+    ]
+  },
+  {
+    "id": 99,
+    "name": "Menziken",
+    "zip_codes": [
+      "5737"
+    ]
+  },
+  {
+    "id": 100,
+    "name": "Merenschwand",
+    "zip_codes": [
+      "5634",
+      "5636"
+    ]
+  },
+  {
+    "id": 101,
+    "name": "Mettauertal",
+    "zip_codes": [
+      "5273",
+      "5274",
+      "5275",
+      "5276",
+      "5277"
+    ]
+  },
+  {
+    "id": 102,
+    "name": "Moosleerau",
+    "zip_codes": [
+      "5054"
+    ]
+  },
+  {
+    "id": 103,
+    "name": "Muhen",
+    "zip_codes": [
+      "5037"
+    ]
+  },
+  {
+    "id": 104,
+    "name": "Mumpf",
+    "zip_codes": [
+      "4322"
+    ]
+  },
+  {
+    "id": 105,
+    "name": "Murgenthal",
+    "zip_codes": [
+      "4853",
+      "4856"
+    ]
+  },
+  {
+    "id": 106,
+    "name": "Muri (AG)",
+    "zip_codes": [
+      "5630"
+    ]
+  },
+  {
+    "id": 107,
+    "name": "Mägenwil",
+    "zip_codes": [
+      "5506"
+    ]
+  },
+  {
+    "id": 108,
+    "name": "Möhlin",
+    "zip_codes": [
+      "4313"
+    ]
+  },
+  {
+    "id": 109,
+    "name": "Mönthal",
+    "zip_codes": [
+      "5237"
+    ]
+  },
+  {
+    "id": 110,
+    "name": "Möriken-Wildegg",
+    "zip_codes": [
+      "5103"
+    ]
+  },
+  {
+    "id": 111,
+    "name": "Mühlau",
+    "zip_codes": [
+      "5642"
+    ]
+  },
+  {
+    "id": 112,
+    "name": "Mülligen",
+    "zip_codes": [
+      "5243"
+    ]
+  },
+  {
+    "id": 113,
+    "name": "Münchwilen (AG)",
+    "zip_codes": [
+      "4333"
+    ]
+  },
+  {
+    "id": 114,
+    "name": "Neuenhof",
+    "zip_codes": [
+      "5432"
+    ]
+  },
+  {
+    "id": 115,
+    "name": "Niederlenz",
+    "zip_codes": [
+      "5702"
+    ]
+  },
+  {
+    "id": 116,
+    "name": "Niederrohrdorf",
+    "zip_codes": [
+      "5443"
+    ]
+  },
+  {
+    "id": 117,
+    "name": "Niederwil (AG)",
+    "zip_codes": [
+      "5524"
+    ]
+  },
+  {
+    "id": 118,
+    "name": "Oberentfelden",
+    "zip_codes": [
+      "5036"
+    ]
+  },
+  {
+    "id": 119,
+    "name": "Oberhof",
+    "zip_codes": [
+      "5062"
+    ]
+  },
+  {
+    "id": 120,
+    "name": "Oberkulm",
+    "zip_codes": [
+      "5727"
+    ]
+  },
+  {
+    "id": 121,
+    "name": "Oberlunkhofen",
+    "zip_codes": [
+      "8917"
+    ]
+  },
+  {
+    "id": 122,
+    "name": "Obermumpf",
+    "zip_codes": [
+      "4324"
+    ]
+  },
+  {
+    "id": 123,
+    "name": "Oberrohrdorf",
+    "zip_codes": [
+      "5452"
+    ]
+  },
+  {
+    "id": 124,
+    "name": "Oberrüti",
+    "zip_codes": [
+      "5647"
+    ]
+  },
+  {
+    "id": 125,
+    "name": "Obersiggenthal",
+    "zip_codes": [
+      "5415",
+      "5416"
+    ]
+  },
+  {
+    "id": 126,
+    "name": "Oberwil-Lieli",
+    "zip_codes": [
+      "8966"
+    ]
+  },
+  {
+    "id": 127,
+    "name": "Oeschgen",
+    "zip_codes": [
+      "5072"
+    ]
+  },
+  {
+    "id": 128,
+    "name": "Oftringen",
+    "zip_codes": [
+      "4665"
+    ]
+  },
+  {
+    "id": 129,
+    "name": "Olsberg",
+    "zip_codes": [
+      "4305"
+    ]
+  },
+  {
+    "id": 130,
+    "name": "Othmarsingen",
+    "zip_codes": [
+      "5504"
+    ]
+  },
+  {
+    "id": 131,
+    "name": "Reinach (AG)",
+    "zip_codes": [
+      "5734"
+    ]
+  },
+  {
+    "id": 132,
+    "name": "Reitnau",
+    "zip_codes": [
+      "5056",
+      "5057"
+    ]
+  },
+  {
+    "id": 133,
+    "name": "Remetschwil",
+    "zip_codes": [
+      "5453"
+    ]
+  },
+  {
+    "id": 134,
+    "name": "Remigen",
+    "zip_codes": [
+      "5236"
+    ]
+  },
+  {
+    "id": 135,
+    "name": "Rheinfelden",
+    "zip_codes": [
+      "4310"
+    ]
+  },
+  {
+    "id": 136,
+    "name": "Riniken",
+    "zip_codes": [
+      "5223"
+    ]
+  },
+  {
+    "id": 137,
+    "name": "Rothrist",
+    "zip_codes": [
+      "4852"
+    ]
+  },
+  {
+    "id": 138,
+    "name": "Rottenschwil",
+    "zip_codes": [
+      "8919"
+    ]
+  },
+  {
+    "id": 139,
+    "name": "Rudolfstetten-Friedlisberg",
+    "zip_codes": [
+      "8964"
+    ]
+  },
+  {
+    "id": 140,
+    "name": "Rupperswil",
+    "zip_codes": [
+      "5102"
+    ]
+  },
+  {
+    "id": 141,
+    "name": "Rüfenach",
+    "zip_codes": [
+      "5235"
+    ]
+  },
+  {
+    "id": 142,
+    "name": "Safenwil",
+    "zip_codes": [
+      "5745"
+    ]
+  },
+  {
+    "id": 143,
+    "name": "Sarmenstorf",
+    "zip_codes": [
+      "5614"
+    ]
+  },
+  {
+    "id": 144,
+    "name": "Schafisheim",
+    "zip_codes": [
+      "5503"
+    ]
+  },
+  {
+    "id": 145,
+    "name": "Schinznach",
+    "zip_codes": [
+      "5107",
+      "5108"
+    ]
+  },
+  {
+    "id": 146,
+    "name": "Schlossrued",
+    "zip_codes": [
+      "5044"
+    ]
+  },
+  {
+    "id": 147,
+    "name": "Schmiedrued",
+    "zip_codes": [
+      "5046"
+    ]
+  },
+  {
+    "id": 148,
+    "name": "Schneisingen",
+    "zip_codes": [
+      "5425"
+    ]
+  },
+  {
+    "id": 149,
+    "name": "Schupfart",
+    "zip_codes": [
+      "4325"
+    ]
+  },
+  {
+    "id": 150,
+    "name": "Schwaderloch",
+    "zip_codes": [
+      "5326"
+    ]
+  },
+  {
+    "id": 151,
+    "name": "Schöftland",
+    "zip_codes": [
+      "5040"
+    ]
+  },
+  {
+    "id": 152,
+    "name": "Seengen",
+    "zip_codes": [
+      "5707"
+    ]
+  },
+  {
+    "id": 153,
+    "name": "Seon",
+    "zip_codes": [
+      "5703"
+    ]
+  },
+  {
+    "id": 154,
+    "name": "Siglistorf",
+    "zip_codes": [
+      "5462"
+    ]
+  },
+  {
+    "id": 155,
+    "name": "Sins",
+    "zip_codes": [
+      "5643",
+      "5645"
+    ]
+  },
+  {
+    "id": 156,
+    "name": "Sisseln",
+    "zip_codes": [
+      "4334"
+    ]
+  },
+  {
+    "id": 157,
+    "name": "Spreitenbach",
+    "zip_codes": [
+      "8957"
+    ]
+  },
+  {
+    "id": 158,
+    "name": "Staffelbach",
+    "zip_codes": [
+      "5053"
+    ]
+  },
+  {
+    "id": 159,
+    "name": "Staufen",
+    "zip_codes": [
+      "5603"
+    ]
+  },
+  {
+    "id": 160,
+    "name": "Stein (AG)",
+    "zip_codes": [
+      "4332"
+    ]
+  },
+  {
+    "id": 161,
+    "name": "Stetten (AG)",
+    "zip_codes": [
+      "5608"
+    ]
+  },
+  {
+    "id": 162,
+    "name": "Strengelbach",
+    "zip_codes": [
+      "4802"
+    ]
+  },
+  {
+    "id": 163,
+    "name": "Suhr",
+    "zip_codes": [
+      "5034"
+    ]
+  },
+  {
+    "id": 164,
+    "name": "Tegerfelden",
+    "zip_codes": [
+      "5306"
+    ]
+  },
+  {
+    "id": 165,
+    "name": "Teufenthal (AG)",
+    "zip_codes": [
+      "5723"
+    ]
+  },
+  {
+    "id": 166,
+    "name": "Thalheim (AG)",
+    "zip_codes": [
+      "5112"
+    ]
+  },
+  {
+    "id": 167,
+    "name": "Turgi",
+    "zip_codes": [
+      "5300"
+    ]
+  },
+  {
+    "id": 168,
+    "name": "Tägerig",
+    "zip_codes": [
+      "5522"
+    ]
+  },
+  {
+    "id": 169,
+    "name": "Ueken",
+    "zip_codes": [
+      "5028"
+    ]
+  },
+  {
+    "id": 170,
+    "name": "Uerkheim",
+    "zip_codes": [
+      "4813"
+    ]
+  },
+  {
+    "id": 171,
+    "name": "Uezwil",
+    "zip_codes": [
+      "5619"
+    ]
+  },
+  {
+    "id": 172,
+    "name": "Unterentfelden",
+    "zip_codes": [
+      "5035"
+    ]
+  },
+  {
+    "id": 173,
+    "name": "Unterkulm",
+    "zip_codes": [
+      "5726"
+    ]
+  },
+  {
+    "id": 174,
+    "name": "Unterlunkhofen",
+    "zip_codes": [
+      "8918"
+    ]
+  },
+  {
+    "id": 175,
+    "name": "Untersiggenthal",
+    "zip_codes": [
+      "5301",
+      "5417"
+    ]
+  },
+  {
+    "id": 176,
+    "name": "Veltheim (AG)",
+    "zip_codes": [
+      "5106"
+    ]
+  },
+  {
+    "id": 177,
+    "name": "Villigen",
+    "zip_codes": [
+      "5232",
+      "5233",
+      "5234"
+    ]
+  },
+  {
+    "id": 178,
+    "name": "Villmergen",
+    "zip_codes": [
+      "5612",
+      "5613"
+    ]
+  },
+  {
+    "id": 179,
+    "name": "Villnachern",
+    "zip_codes": [
+      "5213"
+    ]
+  },
+  {
+    "id": 180,
+    "name": "Vordemwald",
+    "zip_codes": [
+      "4803"
+    ]
+  },
+  {
+    "id": 181,
+    "name": "Wallbach",
+    "zip_codes": [
+      "4323"
+    ]
+  },
+  {
+    "id": 182,
+    "name": "Waltenschwil",
+    "zip_codes": [
+      "5622"
+    ]
+  },
+  {
+    "id": 183,
+    "name": "Wegenstetten",
+    "zip_codes": [
+      "4317"
+    ]
+  },
+  {
+    "id": 184,
+    "name": "Wettingen",
+    "zip_codes": [
+      "5430"
+    ]
+  },
+  {
+    "id": 185,
+    "name": "Widen",
+    "zip_codes": [
+      "8967"
+    ]
+  },
+  {
+    "id": 186,
+    "name": "Wiliberg",
+    "zip_codes": [
+      "5058"
+    ]
+  },
+  {
+    "id": 187,
+    "name": "Windisch",
+    "zip_codes": [
+      "5210"
+    ]
+  },
+  {
+    "id": 188,
+    "name": "Wittnau",
+    "zip_codes": [
+      "5064"
+    ]
+  },
+  {
+    "id": 189,
+    "name": "Wohlen (AG)",
+    "zip_codes": [
+      "5610",
+      "5611"
+    ]
+  },
+  {
+    "id": 190,
+    "name": "Wohlenschwil",
+    "zip_codes": [
+      "5512"
+    ]
+  },
+  {
+    "id": 191,
+    "name": "Wölflinswil",
+    "zip_codes": [
+      "5063"
+    ]
+  },
+  {
+    "id": 192,
+    "name": "Würenlingen",
+    "zip_codes": [
+      "5303"
+    ]
+  },
+  {
+    "id": 193,
+    "name": "Würenlos",
+    "zip_codes": [
+      "5436",
+      "8109"
+    ]
+  },
+  {
+    "id": 194,
+    "name": "Zeihen",
+    "zip_codes": [
+      "5079"
+    ]
+  },
+  {
+    "id": 195,
+    "name": "Zeiningen",
+    "zip_codes": [
+      "4314"
+    ]
+  },
+  {
+    "id": 196,
+    "name": "Zetzwil",
+    "zip_codes": [
+      "5732"
+    ]
+  },
+  {
+    "id": 197,
+    "name": "Zofingen",
+    "zip_codes": [
+      "4800",
+      "4801",
+      "4807",
+      "4808",
+      "4809",
+      "4810",
+      "4812"
+    ]
+  },
+  {
+    "id": 198,
+    "name": "Zufikon",
+    "zip_codes": [
+      "5621"
+    ]
+  },
+  {
+    "id": 199,
+    "name": "Zurzach",
+    "zip_codes": [
+      "5323",
+      "5330",
+      "5332",
+      "5333",
+      "5334",
+      "5463",
+      "5464",
+      "5466"
+    ]
+  },
+  {
+    "id": 200,
+    "name": "Zuzgen",
+    "zip_codes": [
+      "4315"
+    ]
+  }
+]

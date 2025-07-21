@@ -17,6 +17,7 @@ import {
   LineChart,
   Line,
   Legend,
+  LabelList,
 } from 'recharts';
 
 const COLORS = [
@@ -102,23 +103,38 @@ export default function ProjectDashboard() {
   }, []);
 
   // Pie chart: Herkunft der Lebensmittel
-  const totalOrigins = kitchenItems.length;
-  const originStats: Record<string, number> = {};
+  const EU_COUNTRIES = [
+    'Belgien', 'Bulgarien', 'Dänemark', 'Deutschland', 'Estland', 'Finnland', 'Frankreich',
+    'Griechenland', 'Irland', 'Italien', 'Kroatien', 'Lettland', 'Litauen', 'Luxemburg',
+    'Malta', 'Niederlande', 'Österreich', 'Polen', 'Portugal', 'Rumänien', 'Schweden',
+    'Slowakei', 'Slowenien', 'Spanien', 'Tschechien', 'Ungarn', 'Zypern',
+  ];
+  const originStats = { Lokal: 0, 'Regional': 0, CH: 0, EU: 0, Übersee: 0 };
   kitchenItems.forEach((item) => {
-    if (item.origin) originStats[item.origin] = (originStats[item.origin] || 0) + 1;
+    if (item.origin === 'aus eigener Gemeinde oder Nachbargemeinde') originStats.Lokal++;
+    else if (item.origin === 'Kanton Aargau') originStats['Regional']++;
+    else if (item.origin === 'Schweiz') originStats.CH++;
+    else if (item.origin === 'Anderes Land') {
+      if (item.origin_detail && EU_COUNTRIES.some((c) => item.origin_detail.includes(c)))
+        originStats.EU++;
+      else originStats.Übersee++;
+    }
   });
-  const originChartData = Object.entries(originStats).map(([name, value], i) => ({
-    name,
-    value,
-    percent: totalOrigins ? Math.round((value / totalOrigins) * 100) : 0,
-    color: COLORS[i % COLORS.length],
-  }));
+  const totalOrigins = kitchenItems.length;
+  const originChartData = [
+    { name: 'Lokal', value: originStats.Lokal, color: '#10B981' },
+    { name: 'Regional', value: originStats['Regional'], color: '#3B82F6' },
+    { name: 'CH', value: originStats.CH, color: '#F59E0B' },
+    { name: 'EU', value: originStats.EU, color: '#6366F1' },
+    { name: 'Übersee', value: originStats.Übersee, color: '#EF4444' },
+  ];
 
   // Bar chart: Lebensmittel pro Kategorie
   const categoryStats: Record<string, number> = {};
   kitchenItems.forEach((item) => {
     if (item.category) categoryStats[item.category] = (categoryStats[item.category] || 0) + 1;
   });
+  const totalCategoryItems = Object.values(categoryStats).reduce((sum, v) => sum + v, 0);
   const categoryChartData = Object.entries(categoryStats).map(([name, value], i) => ({
     name,
     value,
@@ -186,20 +202,29 @@ export default function ProjectDashboard() {
                       cx="50%"
                       cy="50%"
                       outerRadius={100}
-                      label={({ name, percent }) => `${name}: ${percent}%`}
+                      label={({ percent }) => `${Math.round((percent ?? 0) * 100)}%`}
                     >
                       {originChartData.map((entry, index) => (
                         <Cell key={`cell-origin-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
                     <Tooltip
-                      formatter={(value: number, name: string, props: any) => [
+                      formatter={(value, name, props) => [
                         `${value} (${props.payload.percent}%)`,
-                        name as string,
+                        name,
                       ]}
                     />
                   </PieChart>
                 </ResponsiveContainer>
+                {/* Legend below pie chart */}
+                <div className="flex flex-wrap justify-center gap-4 mt-6">
+                  {originChartData.map((entry, idx) => (
+                    <div key={entry.name} className="flex items-center gap-2">
+                      <span className="inline-block w-4 h-4 rounded-full" style={{ background: entry.color }}></span>
+                      <span className="text-sm text-gray-800">{entry.name}</span>
+                    </div>
+                  ))}
+                </div>
               </Card>
               <Card className="p-6">
                 <h3 className="text-lg font-semibold text-black mb-4">
@@ -259,9 +284,28 @@ export default function ProjectDashboard() {
                       }}
                     />
                     <Bar dataKey="value">
-                      {categoryChartData.map((entry, index) => (
-                        <Cell key={`cell-cat-${index}`} fill={entry.color} />
+                      {categoryChartData.map((entry, i) => (
+                        <Cell key={`cell-cat-${i}`} fill={entry.color} />
                       ))}
+                      <LabelList
+                        dataKey="value"
+                        position="top"
+                        content={({ x, y, width, value }) => {
+                          const percent = totalCategoryItems > 0 ? Math.round((Number(value) / totalCategoryItems) * 100) : 0;
+                          return (
+                            <text
+                              x={Number(x) + Number(width) / 2}
+                              y={Number(y) - 8}
+                              textAnchor="middle"
+                              fill="#222"
+                              fontSize={14}
+                              fontWeight={600}
+                            >
+                              {percent}%
+                            </text>
+                          );
+                        }}
+                      />
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
