@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { Navbar } from '@/components/Navbar';
@@ -347,7 +347,7 @@ const priorityCountryList = [
   'Schweiz',
 ];
 
-export default function KitchenCheckForm() {
+function KitchenCheckForm() {
   const { user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -1132,5 +1132,13 @@ export default function KitchenCheckForm() {
         </div>
       </div>
     </ProtectedRoute>
+  );
+}
+
+export default function KitchenCheckPage() {
+  return (
+    <Suspense fallback={<div>Lade...</div>}>
+      <KitchenCheckForm />
+    </Suspense>
   );
 }
