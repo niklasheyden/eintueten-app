@@ -11,14 +11,14 @@ import { useAuth } from '@/lib/AuthContext';
 import { signOut } from '@/lib/auth';
 import { supabase } from '@/lib/supabaseClient';
 
-// Import Aargau municipalities data
-import aargauMunicipalities from '../../../public/data/aargau_municipalities.json';
+// Import Swiss municipalities data
+import swissMunicipalities from '../../../public/data/swiss_municipalities.json';
 
 // Type for municipality data
 interface Municipality {
   id: number;
   name: string;
-  zip_codes: string[];
+  zip_codes: number[];
 }
 
 const predefinedGroceries = [
@@ -618,12 +618,12 @@ function KitchenCheckForm() {
 
   // Filter municipalities for autocomplete
   const filteredMunicipalities = municipalitySearch
-    ? (aargauMunicipalities as Municipality[]).filter(
+    ? (swissMunicipalities as Municipality[]).filter(
         (m: Municipality) =>
           m.name.toLowerCase().includes(municipalitySearch.toLowerCase()) ||
-          m.zip_codes.some((zip: string) => zip.includes(municipalitySearch)),
+          m.zip_codes.some((zip: number) => zip.toString().includes(municipalitySearch)),
       )
-    : (aargauMunicipalities as Municipality[]).slice(0, 10);
+    : (swissMunicipalities as Municipality[]).slice(0, 10);
 
   // Click outside handler for municipality suggestions
   useEffect(() => {
