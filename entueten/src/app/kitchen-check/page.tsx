@@ -376,6 +376,7 @@ function KitchenCheckForm() {
   const [showMunicipalitySuggestions, setShowMunicipalitySuggestions] = useState(false);
   const municipalityInputRef = useRef<HTMLInputElement>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
+  const [sessionMilestone, setSessionMilestone] = useState<number | null>(null);
 
   // Get session ID from URL parameter or default to milestone 2
   const urlSessionId = searchParams?.get('sessionId');
@@ -407,9 +408,17 @@ function KitchenCheckForm() {
   useEffect(() => {
     if (!user) return;
     const ensureSession = async () => {
-      // If URL session ID is provided, use it directly
+      // If URL session ID is provided, fetch the session to get its milestone
       if (urlSessionId) {
-        setSessionId(urlSessionId);
+        const { data: sessionData, error: sessionError } = await supabase
+          .from('kitchen_check_sessions')
+          .select('id, milestone')
+          .eq('id', urlSessionId)
+          .single();
+        if (!sessionError && sessionData) {
+          setSessionId(sessionData.id);
+          setSessionMilestone(sessionData.milestone);
+        }
         return;
       }
       
@@ -424,6 +433,7 @@ function KitchenCheckForm() {
       if (error) return;
       if (sessions && sessions.length > 0) {
         setSessionId(sessions[0].id);
+        setSessionMilestone(sessions[0].milestone);
       } else {
         // Create new session for this milestone
         const { data, error: insertError } = await supabase
@@ -432,6 +442,7 @@ function KitchenCheckForm() {
           .select();
         if (!insertError && data && data[0]) {
           setSessionId(data[0].id);
+          setSessionMilestone(data[0].milestone);
         }
       }
     };
@@ -533,6 +544,7 @@ function KitchenCheckForm() {
             purchase_location: currentItem.purchase_location,
             purchase_location_detail: currentItem.purchase_location_detail,
             session_id: sessionId,
+            kitchen_check_type: sessionMilestone,
           })
           .eq('id', item.id)
           .select();
@@ -565,6 +577,7 @@ function KitchenCheckForm() {
         purchase_location: currentItem.purchase_location,
         purchase_location_detail: currentItem.purchase_location_detail,
         session_id: sessionId,
+        kitchen_check_type: sessionMilestone,
       })
       .select();
     if (error) {
