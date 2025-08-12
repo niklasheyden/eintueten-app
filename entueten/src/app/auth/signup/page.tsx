@@ -11,6 +11,7 @@ export default function SignUpPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [participantId, setParticipantId] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -26,7 +27,13 @@ export default function SignUpPage() {
       return;
     }
 
-    const { error } = await signUp(email, password);
+    if (!participantId.trim()) {
+      setError('Bitte geben Sie Ihre Teilnehmer-ID ein');
+      setLoading(false);
+      return;
+    }
+
+    const { error } = await signUp(email, password, participantId.trim());
 
     if (error) {
       setError(error.message);
@@ -77,6 +84,22 @@ export default function SignUpPage() {
             </div>
           )}
           <div className="space-y-4">
+            <div>
+              <label htmlFor="participantId" className="block text-sm font-medium text-gray-700 mb-1">
+                Teilnehmer-ID
+              </label>
+              <Input
+                id="participantId"
+                type="text"
+                value={participantId}
+                onChange={(e) => setParticipantId(e.target.value)}
+                required
+                placeholder="z.B. 1234"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Bitte geben Sie die ID ein, die Sie von uns erhalten haben.
+              </p>
+            </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 E-Mail-Adresse

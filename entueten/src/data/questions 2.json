@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "question": "Wie oft isst du Fleisch?",
+    "type": "multiple_choice",
+    "options": ["Täglich", "2-3 Mal pro Woche", "Einmal pro Woche", "Selten", "Nie"],
+    "category": "diet"
+  },
+  {
+    "id": 2,
+    "question": "Wo kaufst du normalerweise deine Lebensmittel ein?",
+    "type": "multiple_choice",
+    "options": [
+      "Supermarkt",
+      "Lokaler Wochenmarkt",
+      "Bioladen",
+      "Online-Lieferung",
+      "Solidarische Landwirtschaft (SoLaWi)"
+    ],
+    "category": "shopping"
+  },
+  {
+    "id": 3,
+    "question": "Wie viel Lebensmittelabfall entsteht bei dir pro Woche?",
+    "type": "multiple_choice",
+    "options": [
+      "Kein Abfall – ich verwende alles",
+      "Weniger als 1 Tasse",
+      "1-2 Tassen",
+      "Mehr als 2 Tassen",
+      "Ich tracke das nicht"
+    ],
+    "category": "sustainability"
+  },
+  {
+    "id": 4,
+    "question": "Baust du selbst Lebensmittel an?",
+    "type": "multiple_choice",
+    "options": [
+      "Ja, ich habe einen Garten",
+      "Ja, ich ziehe Kräuter",
+      "Ja, ich habe ein paar Pflanzen",
+      "Nein, aber ich möchte gerne",
+      "Nein, kein Interesse"
+    ],
+    "category": "gardening"
+  },
+  {
+    "id": 5,
+    "question": "Wie wichtig ist dir Bio-Lebensmittel?",
+    "type": "multiple_choice",
+    "options": [
+      "Sehr wichtig",
+      "Eher wichtig",
+      "Nicht so wichtig",
+      "Gar nicht wichtig"
+    ],
+    "category": "preferences"
+  },
+  {
+    "id": 6,
+    "question": "Was ist deine größte Herausforderung beim nachhaltigen Essen?",
+    "type": "text",
+    "category": "challenges"
+  },
+  {
+    "id": 7,
+    "question": "Wie viel Zeit verbringst du pro Woche mit Kochen?",
+    "type": "multiple_choice",
+    "options": ["Weniger als 2 Stunden", "2-5 Stunden", "5-10 Stunden", "Mehr als 10 Stunden"],
+    "category": "cooking"
+  },
+  {
+    "id": 8,
+    "question": "Was motiviert dich, nachhaltiger zu essen?",
+    "type": "text",
+    "category": "motivation"
+  }
+]
+ 
