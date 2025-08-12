@@ -22,72 +22,57 @@ interface Municipality {
 }
 
 const predefinedGroceries = [
-  'Tomaten',
-  'Mehl',
-  'Äpfel',
-  'Kartoffeln',
-  'Olivenöl',
-  'Eier',
-  'Milch',
-  'Käse',
-  'Äpfel',
-  'Kartoffeln',
-  'Teigwaren/Nudeln',
-  'Butter',
-  'Joghurt',
-  'Karotten',
-  'Reis',
-  'Bananen',
-  'Fleisch',
-  'Fisch',
-  'Tofu',
-  'Paprika',
-  'Salat',
-  'Gurke',
-  'Zwiebeln',
-  'Knoblauch',
-  'Linsen',
-  'Kichererbsen',
-  'Haferflocken',
-  'Müsli',
-  'Poulet/Geflügel',
-  'Schokolade',
-  'Kaffee',
-  'Tee',
-  'Wurst',
-  'Quark',
-  'Rindfleisch',
-  'Schweinefleisch',
-  'Sahne',
-  'Spinat',
-  'Pilze',
-  'Birnen',
-  'Trauben',
-  'Orangen',
-  'Mandarinen',
-  'Honig',
-  'Marmelade',
-  'Couscous',
-  'Polenta',
-  'Mais',
-  'Erbsen',
-  'Walnüsse',
-  'Mandeln',
-  'Cashews',
-  'Sonnenblumenkerne',
-  'Kürbiskerne',
-  'Olivenöl',
-  'Rapsöl',
-  'Butter',
-  'Margarine',
-  'Kekse',
-  'Chips',
-  'Saft',
-  'Wasser',
-  'Limo',
-  'Cola',
-  'Bier',
-  'Wein',
+  // Früchte
+  "Äpfel", "Bananen", "Birnen", "Mandarinen", "Orangen", "Trauben", "Zitrone", "Aprikose", 
+  "Zwetschge/ Pflaume", "Stachelbeere", "Melone", "Ananas", "Feige", "Mirabelle", "Nektarine", 
+  "Litschi", "Mango", "Kaktusfeige", "Heidelbeere", "Quitte", "Kiwi", "Brombeere", "Himbeere", 
+  "Erdbeere", "Kirsche", "Pfirsich",
+  
+  // Gemüse
+  "Gurke", "Karotten", "Kartoffeln", "Paprika", "Pilze", "Salat", "Spinat", "Tomaten", "Zwiebeln", 
+  "Artischocke", "Kohlrabi", "Mangold/ Krautstiel", "Radieschen", "Rhabarber", "Kabis", "Schnittlauch", 
+  "Zucchetti", "Karotten/ Rüebli", "Lauch", "Spargel", "Kürbis", "Pastinake", 
+  "Kohl (Weisskohl, Wirz, Broccoli, Blumenkohl)", "Knollen - Sellerie", "Fenchel", "Süsskartoffeln", 
+  "Schwarzwurzel", "Rüben", "Aubergine", "Bohne grün",
+  
+  // Kräuter
+  "Petersilie", "Koreander", "Dill", "Basilikum",
+  
+  // Milchprodukte
+  "Butter", "Joghurt", "Käse", "Milch", "Quark", "Sahne", "Rahm",
+  
+  // Eier
+  "Eier",
+  
+  // Fleisch
+  "Fleisch", "Rindfleisch", "Schweinefleisch", "Poulet/Geflügel", "Hähnchen/ Poulet", 
+  "Truthahn/ Puten", "Kalbsfleisch", "Innereien", "Lammfleisch", "Entenfleisch", "Wildfleisch", 
+  "Ziegenfleisch", "Pferdefleisch", "Wurst", "Rohschinken", "Aufschnitt",
+  
+  // Fisch
+  "Fisch", "Lachs", "Forelle", "Dorsch", "Thunfisch", "Crevetten",
+  
+  // Getreide & Stärkebeilagen
+  "Haferflocken", "Mais", "Mehl", "Müsli", "Reis", "Teigwaren/Nudeln", "Polenta", "Couscous", 
+  "Risottoreis", "Buchweizen", "Dinkel", "Weizen", "Teigwaren/ Pasta",
+  
+  // Hülsenfrüchte
+  "Erbsen", "Kichererbsen", "Linsen", "Bohne (Soja, Kidney, Bortlotti etc.)", "Tofu",
+  
+  // Nüsse & Samen
+  "Cashews", "Mandeln", "Sonnenblumenkerne", "Walnüsse", "Cashewnuss", "Haselnuss", "Nussmus", 
+  "Baumnuss", "Chiasamen", "Leinsamen", "Sesamsamen", "Kürbiskerne", "Pinienkerne", 
+  "Macadamianuss", "Paranuss",
+  
+  // Öle & Fette
+  "Margarine", "Olivenöl", "Rapsöl", "Sonnenblumenöl", "Kokosöl", "Leinsamenöl", "Hanföl", 
+  "Avocadoöl", "Walnussöl", "Sojaöl",
+  
+  // Getränke
+  "Bier", "Cola", "Limo", "Kaffee", "Tee", "Wasser", "Wein",
+  
+  // Andere
+  "Chips", "Honig", "Kekse", "Knoblauch", "Schokolade", "Oliven", "Gewürz getrocknet", "Essig",
 ];
 const categories = [
   { key: 'Früchte', label: 'Früchte', icon: '🍎' },
