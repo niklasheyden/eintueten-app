@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const tabs = [
-  { href: '/dashboard', label: 'Dashboard', icon: (
+  { href: '/dashboard', label: 'Übersicht', icon: (
     <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="13" width="7" height="8"/><rect x="14" y="3" width="7" height="18"/></svg>
   ) },
   { href: '/mini-challenges', label: 'Challenges', icon: (

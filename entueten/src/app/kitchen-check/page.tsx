@@ -88,8 +88,8 @@ const categories = [
   { key: 'Andere', label: 'Andere', icon: '🛒' },
 ];
 const origins = [
-  'aus eigener Gemeinde oder Nachbargemeinde',
-  'Kanton Aargau',
+  'aus eigener Gemeinde oder Nachbargemeinde (lokal)',
+  'Kanton Aargau (regional)',
   'Schweiz',
   'Anderes Land',
 ];
