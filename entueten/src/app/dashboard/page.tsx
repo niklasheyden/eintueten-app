@@ -412,7 +412,7 @@ export default function DashboardPage() {
                   return milestoneStatus(
                     true,
                     session?.completed_at ? new Date(session.completed_at) : undefined,
-                    'Küchen-Check 1 (Tag 1)',
+                    'Küchen-Check 1 (Tag 1-5)',
                     undefined,
                     true,
                     session,
@@ -423,7 +423,7 @@ export default function DashboardPage() {
                   return milestoneStatus(
                     false,
                     undefined,
-                    'Küchen-Check 1 (Tag 1)',
+                    'Küchen-Check 1 (Tag 1-5)',
                     () => router.push(`/kitchen-check/?sessionId=${session.id}`),
                     true,
                     session,
@@ -434,7 +434,7 @@ export default function DashboardPage() {
                   return milestoneStatus(
                     false,
                     undefined,
-                    'Küchen-Check 1 (Tag 1)',
+                    'Küchen-Check 1 (Tag 1-5)',
                     async () => {
                       if (!user) return;
                       // Create new session for milestone 1 and redirect
@@ -483,7 +483,7 @@ export default function DashboardPage() {
                   return milestoneStatus(
                     true,
                     session?.completed_at ? new Date(session.completed_at) : undefined,
-                    'Küchen-Check 2 (Tag 29)',
+                    'Küchen-Check 2 (ab Tag 20)',
                     undefined,
                     false,
                     session,
@@ -494,7 +494,7 @@ export default function DashboardPage() {
                   return milestoneStatus(
                     false,
                     undefined,
-                    'Küchen-Check 2 (Tag 29)',
+                    'Küchen-Check 2 (ab Tag 20)',
                     () => router.push(`/kitchen-check/?sessionId=${session.id}`),
                     false,
                     session,
@@ -505,7 +505,7 @@ export default function DashboardPage() {
                   return milestoneStatus(
                     false,
                     undefined,
-                    'Küchen-Check 2 (Tag 29)',
+                    'Küchen-Check 2 (ab Tag 20)',
                     async () => {
                       if (!user) return;
                       // Create new session for milestone 2 and redirect
@@ -530,7 +530,7 @@ export default function DashboardPage() {
               {milestoneStatus(
                 !!surveyDone,
                 surveyDone,
-                'Beobachtungsfragen (Tag 29)',
+                'Beobachtungsfragen (ab Tag 20)',
                 !surveyDone ? () => router.push('/observations') : undefined,
                 false,
                 undefined,

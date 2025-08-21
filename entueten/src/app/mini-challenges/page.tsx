@@ -243,7 +243,7 @@ export default function MiniChallengesPage() {
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Mini-Challenges</h1>
             <p className="text-gray-600">
-              Schließe Challenges ab, um dein nachhaltiges Essverhalten zu verbessern
+              Schliesse Challenges ab, um regionale und saisonale Schätze kennenzulernen.
             </p>
           </div>
 
@@ -330,7 +330,7 @@ export default function MiniChallengesPage() {
                       className="w-full"
                       disabled={loading}
                     >
-                      Challenge starten
+                      Challenge abschließen
                     </Button>
                   )}
                 </Card>
@@ -349,14 +349,13 @@ export default function MiniChallengesPage() {
               </p>
               <div className="mb-4">
                 <label className="block font-medium text-gray-900 mb-1">
-                  Deine Antwort{requireProofText ? ' *' : ' (optional)'}
+                  Deine Antwort *
                 </label>
                 <textarea
                   className="border rounded px-3 py-2 w-full text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 appearance-none"
-                  placeholder="Beschreibe, wie du die Challenge gelöst hast..."
                   value={proofText}
                   onChange={(e) => setProofText(e.target.value)}
-                  required={!!requireProofText}
+                  required={true}
                   rows={3}
                 />
               </div>
@@ -394,7 +393,7 @@ export default function MiniChallengesPage() {
                 <Button
                   onClick={() => {
                     if (
-                      (requireProofText && !proofText.trim()) ||
+                      !proofText.trim() ||
                       (requireProofImage && !proofImage)
                     ) {
                       setShowProofAlert(true);
@@ -410,8 +409,8 @@ export default function MiniChallengesPage() {
               </div>
               {showProofAlert && (
                 <div className="mt-4 text-red-600 text-sm font-medium">
-                  {requireProofText && !proofText.trim() && 'Bitte gib einen Nachweistext ein.'}
-                  {requireProofText && !proofText.trim() && requireProofImage && !proofImage && ' '}
+                  {!proofText.trim() && 'Bitte gib einen Nachweistext ein.'}
+                  {!proofText.trim() && requireProofImage && !proofImage && ' '}
                   {requireProofImage && !proofImage && 'Bitte lade ein Bild hoch.'}
                 </div>
               )}

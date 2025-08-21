@@ -3,14 +3,14 @@
     "id": 1,
     "question": "Wie wichtig ist dir Regionalität bei deinem Einkauf?",
     "type": "multiple_choice",
-    "options": ["Ist mir nicht wichtig", "Ist mir etwas wichtig", "Ist mir wichtige", "Ist mir sehr wichtig"],
+    "options": ["Ist mir nicht wichtig", "Ist mir etwas wichtig", "Ist mir wichtig", "Ist mir sehr wichtig"],
     "category": "Regionaliät"
   },
   {
     "id": 2,
     "question": "Wie wichtig ist dir Saisonalität bei deinem Einkauf?",
     "type": "multiple_choice",
-    "options": ["Ist mir nicht wichtig", "Ist mir etwas wichtig", "Ist mir wichtige", "Ist mir sehr wichtig"],
+    "options": ["Ist mir nicht wichtig", "Ist mir etwas wichtig", "Ist mir wichtig", "Ist mir sehr wichtig"],
     "category": "Saisonalität"
   },
   {
