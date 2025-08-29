@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Entüten - Nachhaltige Lebensmittelerfassung',
+  title: 'Eintüten - Nachhaltige Lebensmittelerfassung',
   description:
     'Dokumentiere deine nachhaltigen Lebensmittelentscheidungen und schließe Herausforderungen ab',
 };

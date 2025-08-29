@@ -87,6 +87,37 @@ export default function DashboardPage() {
     fetchData();
   }, [user]);
 
+  // Add a refresh mechanism when the page becomes visible again
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && user) {
+        // Refresh data when user returns to the tab
+        const fetchData = async () => {
+          try {
+            const { data: sessions, error: sessionError } = await supabase
+              .from('kitchen_check_sessions')
+              .select('*')
+              .eq('user_id', user.id)
+              .order('completed_at', { ascending: true });
+            if (!sessionError) setKitchenCheckSessions(sessions || []);
+            
+            const { data: kitchen, error: kitchenError } = await supabase
+              .from('kitchen_items')
+              .select('*')
+              .eq('user_id', user.id);
+            if (!kitchenError) setKitchenItems(kitchen || []);
+          } catch (err) {
+            console.error('Error refreshing data:', err);
+          }
+        };
+        fetchData();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [user]);
+
   // Robust kitchen check completion logic
   function isSessionComplete(session: unknown) {
     const items = kitchenItems.filter((item) => item.session_id === (session as any).id);
