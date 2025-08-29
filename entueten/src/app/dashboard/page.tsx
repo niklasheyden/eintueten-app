@@ -232,9 +232,10 @@ export default function DashboardPage() {
     session?: unknown,
     customLabel?: string,
     showCheckAnsehenButton?: boolean,
+    hasInProgressSession?: boolean,
   ): React.ReactNode => {
-    // Determine if this milestone has an in-progress session
-    const hasInProgressSession = isFirstMilestone ? !!inProgressMilestone1 : !!inProgressMilestone2;
+    // Use passed parameter or fall back to global variables
+    const inProgressState = hasInProgressSession !== undefined ? hasInProgressSession : (isFirstMilestone ? !!inProgressMilestone1 : !!inProgressMilestone2);
     return (
       <div
         className={`flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 rounded-lg mb-4 ${done ? 'bg-green-50' : 'bg-yellow-50'}`}
@@ -287,7 +288,7 @@ export default function DashboardPage() {
               className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full sm:w-auto"
               onClick={action}
             >
-              {customLabel || (hasInProgressSession ? 'Fortsetzen' : 'Jetzt starten')}
+              {customLabel || (inProgressState ? 'Fortsetzen' : 'Jetzt starten')}
             </button>
           )}
           {done && showCheckAnsehenButton && (
@@ -459,7 +460,8 @@ export default function DashboardPage() {
                     true,
                     session,
                     'Fortsetzen',
-                    false
+                    false,
+                    true
                   );
                 } else {
                   return milestoneStatus(
@@ -530,7 +532,8 @@ export default function DashboardPage() {
                     false,
                     session,
                     'Fortsetzen',
-                    false
+                    false,
+                    true
                   );
                 } else {
                   return milestoneStatus(
