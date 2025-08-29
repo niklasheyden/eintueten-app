@@ -346,8 +346,8 @@ export default function DashboardPage() {
     const originStats = { Lokal: 0, 'Regional': 0, CH: 0, EU: 0, Übersee: 0 };
     items.forEach((item: unknown) => {
       const it = item as any;
-      if (it.origin === 'aus eigener Gemeinde oder Nachbargemeinde') originStats.Lokal++;
-      else if (it.origin === 'Kanton Aargau') originStats['Regional']++;
+      if (it.origin === 'aus eigener Gemeinde oder Nachbargemeinde (lokal)') originStats.Lokal++;
+      else if (it.origin === 'Kanton Aargau (regional)') originStats['Regional']++;
       else if (it.origin === 'Schweiz') originStats.CH++;
       else if (it.origin === 'Anderes Land') {
         if (it.origin_detail && EU_COUNTRIES.some((c) => it.origin_detail.includes(c)))
