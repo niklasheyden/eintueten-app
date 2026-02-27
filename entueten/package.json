@@ -20,7 +20,7 @@
     "@tanstack/react-query-devtools": "^5.81.2",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
-    "next": "15.3.4",
+    "next": "^15.5.12",
     "prettier": "^3.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
