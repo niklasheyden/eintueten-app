@@ -122,7 +122,7 @@ export default function DashboardPage() {
   function isSessionComplete(session: unknown) {
     const items = kitchenItems.filter((item) => item.session_id === (session as any).id);
     const categories = new Set(items.map((i) => i.category));
-    const requiredItems = 10; // Both milestones require 10 items
+    const requiredItems = 15;
     return !!(session as any).completed_at && items.length >= requiredItems && categories.size >= 5;
   }
 
@@ -384,7 +384,7 @@ export default function DashboardPage() {
     }
     const items = kitchenItems.filter((item) => item.session_id === session.id);
     const categories = new Set(items.map((i) => i.category));
-    const requiredItems = 10; // Both milestones require 10 items
+    const requiredItems = 15;
     const isCompleted = !!session.completed_at && items.length >= requiredItems && categories.size >= 5;
     if (isCompleted) {
       return { state: 'completed', session };
@@ -489,26 +489,6 @@ export default function DashboardPage() {
                 }
               })()}
 
-              {/* Mini-Challenge Milestone */}
-              {(() => {
-                const total = Array.isArray(challengesData) ? challengesData.length : 0;
-                const completed = challengeProgress.filter((c: any) => c.completed).length;
-                let label = 'Jetzt starten';
-                if (completed > 0 && completed < total) label = 'Fortsetzen';
-                if (completed === total && total > 0) label = 'Ansehen';
-                const done = completed === total && total > 0;
-                return milestoneStatus(
-                  done,
-                  undefined,
-                  `Mini-Challenges (Tag 1-29)`,
-                  !done ? () => router.push('/mini-challenges') : undefined,
-                  false,
-                  undefined,
-                  label,
-                  false // never show Check ansehen button
-                );
-              })()}
-
               {/* Küchen-Check 2 */}
               {(() => {
                 const { state, session } = getMilestoneState(2);
@@ -516,7 +496,7 @@ export default function DashboardPage() {
                   return milestoneStatus(
                     true,
                     session?.completed_at ? new Date(session.completed_at) : undefined,
-                    'Küchen-Check 2 (ab Tag 20)',
+                    'Küchen-Check 2 (Tag 6-30)',
                     undefined,
                     false,
                     session,
@@ -527,7 +507,7 @@ export default function DashboardPage() {
                   return milestoneStatus(
                     false,
                     undefined,
-                    'Küchen-Check 2 (ab Tag 20)',
+                    'Küchen-Check 2 (Tag 6-30)',
                     () => router.push(`/kitchen-check/?sessionId=${session.id}`),
                     false,
                     session,
@@ -539,10 +519,9 @@ export default function DashboardPage() {
                   return milestoneStatus(
                     false,
                     undefined,
-                    'Küchen-Check 2 (ab Tag 20)',
+                    'Küchen-Check 2 (Tag 6-30)',
                     async () => {
                       if (!user) return;
-                      // Create new session for milestone 2 and redirect
                       setLoading(true);
                       const { data, error } = await supabase
                         .from('kitchen_check_sessions')
@@ -559,6 +538,26 @@ export default function DashboardPage() {
                     false
                   );
                 }
+              })()}
+
+              {/* Mini-Challenge Milestone */}
+              {(() => {
+                const total = Array.isArray(challengesData) ? challengesData.length : 0;
+                const completed = challengeProgress.filter((c: any) => c.completed).length;
+                let label = 'Jetzt starten';
+                if (completed > 0 && completed < total) label = 'Fortsetzen';
+                if (completed === total && total > 0) label = 'Ansehen';
+                const done = completed === total && total > 0;
+                return milestoneStatus(
+                  done,
+                  undefined,
+                  `Mini-Challenges (Tag 1-30)`,
+                  !done ? () => router.push('/mini-challenges') : undefined,
+                  false,
+                  undefined,
+                  label,
+                  false
+                );
               })()}
               {/* Beobachtungsfragen milestone: only show button if not completed */}
               {milestoneStatus(

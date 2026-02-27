@@ -359,25 +359,27 @@ export default function MiniChallengesPage() {
                   rows={3}
                 />
               </div>
-              <div className="mb-4">
-                <label className="block font-medium text-gray-900 mb-1">
-                  Bild hochladen{requireProofImage ? ' *' : ' (optional)'}
-                </label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
-                      setProofImage(e.target.files[0]);
-                      setProofImageUrl(URL.createObjectURL(e.target.files[0]));
-                    }
-                  }}
-                  required={!!requireProofImage}
-                />
-                {proofImageUrl && (
-                  <img src={proofImageUrl} alt="Vorschau" className="mt-2 max-h-32 rounded" />
-                )}
-              </div>
+              {requireProofImage && (
+                <div className="mb-4">
+                  <label className="block font-medium text-gray-900 mb-1">
+                    Bild hochladen *
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files[0]) {
+                        setProofImage(e.target.files[0]);
+                        setProofImageUrl(URL.createObjectURL(e.target.files[0]));
+                      }
+                    }}
+                    required
+                  />
+                  {proofImageUrl && (
+                    <img src={proofImageUrl} alt="Vorschau" className="mt-2 max-h-32 rounded" />
+                  )}
+                </div>
+              )}
               <div className="flex justify-end space-x-4">
                 <Button
                   variant="secondary"

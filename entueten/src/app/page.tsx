@@ -62,7 +62,7 @@ export default function Home() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/auth/signup">
-              <Button className="px-8 py-3 text-lg">Jetzt starten</Button>
+              <Button className="px-8 py-3 text-lg">Registrieren</Button>
             </Link>
             <Link href="/auth/signin">
               <Button variant="outline" className="px-8 py-3 text-lg">

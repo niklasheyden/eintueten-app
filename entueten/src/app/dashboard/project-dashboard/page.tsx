@@ -111,8 +111,8 @@ export default function ProjectDashboard() {
   ];
   const originStats = { Lokal: 0, 'Regional': 0, CH: 0, EU: 0, Übersee: 0 };
   kitchenItems.forEach((item) => {
-    if (item.origin === 'aus eigener Gemeinde oder Nachbargemeinde') originStats.Lokal++;
-    else if (item.origin === 'Kanton Aargau') originStats['Regional']++;
+    if (item.origin === 'aus eigener Gemeinde oder Nachbargemeinde (lokal)') originStats.Lokal++;
+    else if (item.origin === 'Kanton Aargau (regional)') originStats['Regional']++;
     else if (item.origin === 'Schweiz') originStats.CH++;
     else if (item.origin === 'Anderes Land') {
       if (item.origin_detail && EU_COUNTRIES.some((c) => item.origin_detail.includes(c)))
