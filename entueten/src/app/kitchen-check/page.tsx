@@ -22,57 +22,30 @@ interface Municipality {
 }
 
 const predefinedGroceries = [
-  // Früchte
-  "Äpfel", "Bananen", "Birnen", "Mandarinen", "Orangen", "Trauben", "Zitrone", "Aprikose", 
-  "Zwetschge/ Pflaume", "Stachelbeere", "Melone", "Ananas", "Feige", "Mirabelle", "Nektarine", 
-  "Litschi", "Mango", "Kaktusfeige", "Heidelbeere", "Quitte", "Kiwi", "Brombeere", "Himbeere", 
-  "Erdbeere", "Kirsche", "Pfirsich",
-  
-  // Gemüse
-  "Gurke", "Karotten", "Kartoffeln", "Paprika", "Pilze", "Salat", "Spinat", "Tomaten", "Zwiebeln", 
-  "Artischocke", "Kohlrabi", "Mangold/ Krautstiel", "Radieschen", "Rhabarber", "Kabis", "Schnittlauch", 
-  "Zucchetti", "Karotten/ Rüebli", "Lauch", "Spargel", "Kürbis", "Pastinake", 
-  "Kohl (Weisskohl, Wirz, Broccoli, Blumenkohl)", "Knollen - Sellerie", "Fenchel", "Süsskartoffeln", 
-  "Schwarzwurzel", "Rüben", "Aubergine", "Bohne grün",
-  
-  // Kräuter
-  "Petersilie", "Koreander", "Dill", "Basilikum",
-  
-  // Milchprodukte
-  "Butter", "Joghurt", "Käse", "Milch", "Quark", "Sahne", "Rahm",
-  
-  // Eier
-  "Eier",
-  
-  // Fleisch
-  "Fleisch", "Rindfleisch", "Schweinefleisch", "Poulet/Geflügel", "Hähnchen/ Poulet", 
-  "Truthahn/ Puten", "Kalbsfleisch", "Innereien", "Lammfleisch", "Entenfleisch", "Wildfleisch", 
-  "Ziegenfleisch", "Pferdefleisch", "Wurst", "Rohschinken", "Aufschnitt",
-  
-  // Fisch
-  "Fisch", "Lachs", "Forelle", "Dorsch", "Thunfisch", "Crevetten",
-  
-  // Getreide & Stärkebeilagen
-  "Haferflocken", "Mais", "Mehl", "Müsli", "Reis", "Teigwaren/Nudeln", "Polenta", "Couscous", 
-  "Risottoreis", "Buchweizen", "Dinkel", "Weizen", "Teigwaren/ Pasta",
-  
-  // Hülsenfrüchte
-  "Erbsen", "Kichererbsen", "Linsen", "Bohne (Soja, Kidney, Bortlotti etc.)", "Tofu",
-  
-  // Nüsse & Samen
-  "Cashews", "Mandeln", "Sonnenblumenkerne", "Walnüsse", "Cashewnuss", "Haselnuss", "Nussmus", 
-  "Baumnuss", "Chiasamen", "Leinsamen", "Sesamsamen", "Kürbiskerne", "Pinienkerne", 
-  "Macadamianuss", "Paranuss",
-  
-  // Öle & Fette
-  "Margarine", "Olivenöl", "Rapsöl", "Sonnenblumenöl", "Kokosöl", "Leinsamenöl", "Hanföl", 
-  "Avocadoöl", "Walnussöl", "Sojaöl",
-  
-  // Getränke
-  "Bier", "Cola", "Limo", "Kaffee", "Tee", "Wasser", "Wein",
-  
-  // Andere
-  "Chips", "Honig", "Kekse", "Knoblauch", "Schokolade", "Oliven", "Gewürz getrocknet", "Essig",
+  "Apfel/Äpfel", "Bananen", "Bier", "Birnen", "Butter", "Cashews", "Chips", "Cola", "Couscous",
+  "Eier", "Erbsen", "Fisch", "Fleisch", "Gurke", "Haferflocken", "Honig", "Joghurt", "Kaffee",
+  "Kartoffeln", "Käse", "Kekse", "Kichererbsen", "Knoblauch", "Limo", "Linsen", "Mandarinen",
+  "Mandeln", "Mais", "Margarine", "Mehl", "Milch", "Müsli", "Olivenöl", "Orangen", "Paprika",
+  "Pilze", "Polenta", "Poulet/Geflügel/Hähnchen", "Quark", "Rapsöl", "Reis", "Rindfleisch",
+  "Salat", "Sahne", "Schokolade", "Schweinefleisch", "Spinat", "Sonnenblumenkerne", "Tee", "Tofu",
+  "Tomaten", "Trauben", "Walnüsse", "Wasser", "Wein", "Wurst", "Zwiebeln", "Oliven",
+  "Sonnenblumenöl", "Kokosöl", "Leinsamenöl", "Hanföl", "Avocadoöl", "Walnussöl", "Sojaöl",
+  "Rahm", "Bohne (Soja, Kidney, Bortlotti Etc.)", "Risottoreis", "Buchweizen", "Dinkel", "Weizen",
+  "Teigwaren/ Pasta", "Gewürz Getrocknet", "Essig", "Petersilie", "Koreander", "Dill", "Basilikum",
+  "Artischocke", "Kohlrabi", "Mangold/ Krautstiel", "Radieschen", "Rhabarber", "Kabis",
+  "Schnittlauch", "Zucchetti", "Karotten/ Rüebli", "Lauch", "Spargel", "Kürbis", "Pastinake",
+  "Kohl (Weisskohl, Wirz, Broccoli, Blumenkohl)", "Knollen - Sellerie", "Fenchel", "Süsskartoffeln",
+  "Schwarzwurzel", "Rüben", "Aubergine", "Bohne Grün", "Zitrone", "Aprikose", "Zwetschge/ Pflaume",
+  "Stachelbeere", "Melone", "Ananas", "Feige", "Mirabelle", "Nektarine", "Litschi", "Mango",
+  "Kaktusfeige", "Heidelbeere", "Quitte", "Kiwi", "Brombeere", "Himbeere", "Erdbeere", "Kirsche",
+  "Pfirsich", "Cashewnuss", "Haselnuss", "Nussmus", "Baumnuss", "Chiasamen", "Leinsamen",
+  "Sesamsamen", "Kürbiskerne", "Pinienkerne", "Macadamianuss", "Paranuss", "Lachs", "Forelle",
+  "Dorsch", "Thunfisch", "Crevetten", "Truthahn/ Puten", "Kalbsfleisch", "Innereien",
+  "Lammfleisch", "Entenfleisch", "Wildfleisch", "Ziegenfleisch", "Pferdefleisch", "Rohschinken",
+  "Aufschnitt", "Quinoa", "Speck", "Zucker", "Pecannüsse", "Hirse", "Gerste", "Tortillas",
+  "Pistazien", "Griess", "Teigwaren/Pasta", "Kernöl", "Brot", "Sesam", "Randen/Rote Bete",
+  "Hackfleisch", "Wurst Und Aufschnitt", "Ingwer", "Kastanien", "Chili", "Bulgur", "Ahornsirup",
+  "Sultaninen",
 ];
 const categories = [
   { key: 'Früchte', label: 'Früchte', icon: '🍎' },
@@ -446,7 +419,7 @@ function KitchenCheckForm() {
   }, [showCountrySuggestions]);
 
   // Progress bar calculation (now based on items out of 10)
-  const itemProgress = Math.min(items.length, 10);
+  const itemProgress = Math.min(items.length, 15);
 
   // Calculate unique categories progress
   const uniqueCategories = Array.from(new Set(items.map((i) => i.category))).filter(Boolean);
@@ -454,7 +427,7 @@ function KitchenCheckForm() {
 
   // Validation for 10 items from 5 categories
   const categoriesSet = new Set(items.map((i) => i.category));
-  const enoughItems = items.length >= 10 && categoriesSet.size >= 5;
+  const enoughItems = items.length >= 15 && categoriesSet.size >= 5;
 
   // Show completed animation when enoughItems becomes true for the first time
   useEffect(() => {
@@ -576,7 +549,7 @@ function KitchenCheckForm() {
       setGrocerySearch('');
       if (
         !showEnoughMessage &&
-        items.length + 1 >= 10 &&
+        items.length + 1 >= 15 &&
         new Set([...categoriesSet, currentItem.category]).size >= 5
       ) {
         setShowEnoughMessage(true);
@@ -644,7 +617,16 @@ function KitchenCheckForm() {
         <Navbar user={user} onSignOut={handleSignOut} />
         <div className="w-full max-w-full px-2 sm:max-w-2xl sm:px-2 mx-auto py-4">
           <Card className="p-6 mb-6">
-            <h2 className="text-lg font-semibold mb-2 text-gray-900">Küchencheck</h2>
+            <h2 className="text-lg font-semibold mb-1 text-gray-900">
+              {sessionMilestone === 1 ? 'Küchen-Check 1' : sessionMilestone === 2 ? 'Küchen-Check 2' : 'Küchen-Check'}
+            </h2>
+            <p className="text-sm text-gray-600 mb-2">
+              {sessionMilestone === 1
+                ? 'Suche mind. 15 Lebensmittel aus 5 verschiedenen Kategorien, die du zu Hause hast aus und erfasse deren Herkunft'
+                : sessionMilestone === 2
+                  ? 'Achte dich bei einem normalen Einkauf auf die Herkunft und Saisonalität der Lebensmittel. Erfasse die Herkunft von mind. 15 eingekauften Lebensmitteln aus 5 verschiedenen Kategorien'
+                  : ''}
+            </p>
             {/* Sticky progress bar */}
             <div
               className="sticky top-0 z-10 bg-white rounded-t-lg shadow-sm mb-4 pb-2 pt-2 px-6"
@@ -652,13 +634,13 @@ function KitchenCheckForm() {
             >
               <div className="flex items-center justify-between mb-1">
                 <span className="text-sm font-bold text-gray-900">
-                  {items.length < 10
-                    ? `${items.length} von 10 Einträgen hinzugefügt`
+                  {items.length < 15
+                    ? `${items.length} von 15 Einträgen hinzugefügt`
                     : `${items.length} Einträge hinzugefügt`}
                 </span>
               </div>
               <div className="flex w-full gap-0.5 mb-1">
-                {[...Array(10)].map((_, idx) => (
+                {[...Array(15)].map((_, idx) => (
                   <div
                     key={idx}
                     className={`flex-1 h-2 rounded ${idx < items.length ? 'bg-blue-600' : 'bg-gray-200'} transition-all duration-300`}
@@ -772,45 +754,82 @@ function KitchenCheckForm() {
               {currentItem.origin === 'Anderes Land' ? (
                 <div ref={countryBoxRef}>
                   <label className="block text-gray-900 font-medium mb-1">Land auswählen *</label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      className="border rounded px-3 py-2 w-full text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 appearance-none"
-                      placeholder="Land suchen..."
-                      value={countrySearch || currentItem.origin_detail || ''}
-                      onChange={(e) => {
-                        setCountrySearch(e.target.value);
-                        setCurrentItem({ ...currentItem, origin_detail: '' });
-                        setShowCountrySuggestions(true);
-                      }}
-                      onFocus={() => setShowCountrySuggestions(true)}
-                      required
-                    />
-                    {showCountrySuggestions && filteredCountries.length > 0 && (
-                      <div className="absolute z-10 left-0 right-0 bg-white border border-gray-200 rounded shadow mt-1 max-h-48 overflow-auto">
-                        {filteredCountries.map((country) => (
-                          <button
-                            type="button"
-                            key={country}
-                            className="block w-full text-left px-4 py-2 hover:bg-blue-100 text-gray-900"
-                            onClick={() => {
-                              setCurrentItem({ ...currentItem, origin_detail: country });
-                              setCountrySearch(country);
-                              setShowCountrySuggestions(false);
-                            }}
-                          >
-                            {country}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  {currentItem.origin_detail ? (
+                    <div className="flex items-center gap-2">
+                      <span className="flex-1 border rounded px-3 py-2 text-gray-900 bg-gray-50">
+                        {currentItem.origin_detail}
+                      </span>
+                      <button
+                        type="button"
+                        className="px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded border border-red-200"
+                        onClick={() => {
+                          setCurrentItem({ ...currentItem, origin_detail: '' });
+                          setCountrySearch('');
+                          setShowCountrySuggestions(true);
+                        }}
+                      >
+                        Ändern
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="relative">
+                      <input
+                        type="text"
+                        className="border rounded px-3 py-2 w-full text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 appearance-none"
+                        placeholder="Land suchen..."
+                        value={countrySearch}
+                        onChange={(e) => {
+                          setCountrySearch(e.target.value);
+                          setShowCountrySuggestions(true);
+                        }}
+                        onFocus={() => setShowCountrySuggestions(true)}
+                      />
+                      {showCountrySuggestions && filteredCountries.length > 0 && (
+                        <div className="absolute z-10 left-0 right-0 bg-white border border-gray-200 rounded shadow mt-1 max-h-48 overflow-auto">
+                          {filteredCountries.map((country) => (
+                            <button
+                              type="button"
+                              key={country}
+                              className="block w-full text-left px-4 py-2 hover:bg-blue-100 text-gray-900"
+                              onClick={() => {
+                                setCurrentItem({ ...currentItem, origin_detail: country });
+                                setCountrySearch(country);
+                                setShowCountrySuggestions(false);
+                              }}
+                            >
+                              {country}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                      {!currentItem.origin_detail && countrySearch && filteredCountries.length === 0 && (
+                        <p className="text-sm text-red-500 mt-1">Kein Land gefunden. Bitte wähle ein Land aus der Liste.</p>
+                      )}
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div>
                   <label className="block text-gray-900 font-medium mb-1">
                     Hast du bei CH Produkten die genaue Ortsangabe? (Gemeindename oder PLZ) (optional)
                   </label>
+                  <button
+                    type="button"
+                    className={`mb-2 px-3 py-2 rounded-full border text-sm font-medium transition-colors ${currentItem.origin_detail === 'Keine Angabe auf Produkt' ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-gray-900 border-gray-300 hover:bg-blue-100'}`}
+                    onClick={() => {
+                      if (currentItem.origin_detail === 'Keine Angabe auf Produkt') {
+                        setCurrentItem({ ...currentItem, origin_detail: '' });
+                        setMunicipalitySearch('');
+                      } else {
+                        setCurrentItem({ ...currentItem, origin_detail: 'Keine Angabe auf Produkt' });
+                        setMunicipalitySearch('');
+                        setShowMunicipalitySuggestions(false);
+                      }
+                    }}
+                  >
+                    Keine Angabe auf Produkt
+                  </button>
+                  {currentItem.origin_detail !== 'Keine Angabe auf Produkt' && (
                   <div className="relative" ref={municipalityInputRef}>
                     <input
                       type="text"
@@ -847,6 +866,7 @@ function KitchenCheckForm() {
                       </div>
                     )}
                   </div>
+                  )}
                 </div>
               )}
               {/* Row 5: Produktionsart/Label dropdown */}
@@ -894,14 +914,13 @@ function KitchenCheckForm() {
                     <option value="">Einkaufsort wählen</option>
                     <option value="Migros">Migros</option>
                     <option value="Coop">Coop</option>
-                    <option value="Lidl">Lidl</option>
-                    <option value="Aldi">Aldi</option>
-                    <option value="Hofladen">Hofladen</option>
-                    <option value="Markt">Markt</option>
                     <option value="Volg">Volg</option>
-                    <option value="Denner">Denner</option>
-                    <option value="Abonnement">Abonnement</option>
-                    <option value="Internet">Internet</option>
+                    <option value="Anderer Detailhändler">Anderer Detailhändler</option>
+                    <option value="Hofladen">Hofladen</option>
+                    <option value="Bioladen">Bioladen</option>
+                    <option value="Abonnement/Bestellung">Abonnement/Bestellung</option>
+                    <option value="Eigener Garten">Eigener Garten</option>
+                    <option value="Fachhandel (Käsi, Metzgerei etc.)">Fachhandel (Käsi, Metzgerei etc.)</option>
                     <option value="Andere">Andere</option>
                   </select>
                   <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400">
@@ -940,7 +959,8 @@ function KitchenCheckForm() {
                   type="submit"
                   className="!w-full px-8 py-4 text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
                   disabled={
-                    loading || !currentItem.name || !currentItem.category || !currentItem.origin
+                    loading || !currentItem.name || !currentItem.category || !currentItem.origin ||
+                    (currentItem.origin === 'Anderes Land' && !currentItem.origin_detail)
                   }
                 >
                   {editIndex !== null ? 'Änderungen speichern' : 'Hinzufügen'}

@@ -33,6 +33,12 @@ export default function SignUpPage() {
       return;
     }
 
+    if (!/^\d+$/.test(participantId.trim())) {
+      setError('Die Teilnehmer-ID darf nur Zahlen enthalten');
+      setLoading(false);
+      return;
+    }
+
     const { error } = await signUp(email, password, participantId.trim());
 
     if (error) {
@@ -91,8 +97,13 @@ export default function SignUpPage() {
               <Input
                 id="participantId"
                 type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 value={participantId}
-                onChange={(e) => setParticipantId(e.target.value)}
+                onChange={(e) => {
+                  const val = e.target.value.replace(/[^0-9]/g, '');
+                  setParticipantId(val);
+                }}
                 required
                 placeholder="z.B. 1234"
               />
