@@ -86,6 +86,20 @@ export const signIn = async (email: string, password: string) => {
 
 export const signOut = async () => {
   const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.error('Supabase signOut failed:', error);
+  }
+  // Force-clear any lingering Supabase auth tokens from storage
+  try {
+    Object.keys(localStorage).forEach((key) => {
+      if (key.startsWith('sb-')) localStorage.removeItem(key);
+    });
+    Object.keys(sessionStorage).forEach((key) => {
+      if (key.startsWith('sb-')) sessionStorage.removeItem(key);
+    });
+  } catch (e) {
+    // ignore storage access errors
+  }
   return { error };
 };
 

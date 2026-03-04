@@ -44,7 +44,7 @@ export default function ObservationsPage() {
 
   const handleSignOut = async () => {
     await signOut();
-    router.push('/');
+    window.location.href = '/';
   };
 
   useEffect(() => {

@@ -48,7 +48,7 @@ export default function MiniChallengesPage() {
 
   const handleSignOut = async () => {
     await signOut();
-    router.push('/');
+    window.location.href = '/';
   };
 
   useEffect(() => {
