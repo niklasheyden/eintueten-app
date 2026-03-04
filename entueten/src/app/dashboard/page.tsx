@@ -319,7 +319,7 @@ export default function DashboardPage() {
 
   const handleSignOut = async () => {
     await signOut();
-    router.push('/');
+    window.location.href = '/';
   };
 
   // Find the best session for each milestone (reuse getMilestoneState logic)

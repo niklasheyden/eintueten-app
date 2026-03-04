@@ -456,7 +456,7 @@ function KitchenCheckForm() {
 
   const handleSignOut = async () => {
     await signOut();
-    router.push('/');
+    window.location.href = '/';
   };
 
   const handleDeleteItem = async (idx: number) => {
