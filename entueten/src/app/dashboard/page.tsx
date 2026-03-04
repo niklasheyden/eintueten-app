@@ -181,12 +181,12 @@ export default function DashboardPage() {
         desc: `${kitchenItems.length} Lebensmittel dokumentiert`,
         date: lastCompletedCheckDate,
       },
-    inProgressCheck && {
+    inProgressCheck && inProgressSession && {
       type: 'kitchen-inprogress',
       title: 'Küchen-Check in Bearbeitung',
-      desc: `${inProgressCount}/20 Einträge`,
+      desc: `${inProgressCount}/15 Einträge`,
       date: kitchenItems.length > 0 ? kitchenItems[kitchenItems.length - 1].added_at : null,
-      action: () => router.push('/kitchen-check/'),
+      action: () => router.push(`/kitchen-check/?sessionId=${(inProgressSession as any).id}`),
     },
     challengeProgress.length > 0 && {
       type: 'challenge',
@@ -322,9 +322,9 @@ export default function DashboardPage() {
     router.push('/');
   };
 
-  // Find the first and second completed kitchen check sessions
-  const firstSession = kitchenCheckSessions.find((s: any) => s.milestone === 1);
-  const secondSession = kitchenCheckSessions.find((s: any) => s.milestone === 2);
+  // Find the best session for each milestone (reuse getMilestoneState logic)
+  const firstSession = getMilestoneState(1).session;
+  const secondSession = getMilestoneState(2).session;
   const firstSessionItems = firstSession
     ? kitchenItems.filter((item: unknown) => {
         const it = item as any;
@@ -377,21 +377,33 @@ export default function DashboardPage() {
   }
 
   // Helper to get session and state for a milestone
+  // Finds the best session: prefer completed, then in-progress (has items), then empty
   function getMilestoneState(milestone: number) {
-    const session = kitchenCheckSessions.find((s: any) => s.milestone === milestone);
-    if (!session) {
+    const milestoneSessions = kitchenCheckSessions.filter((s: any) => s.milestone === milestone);
+    if (milestoneSessions.length === 0) {
       return { state: 'not_started', session: null };
     }
-    const items = kitchenItems.filter((item) => item.session_id === session.id);
-    const categories = new Set(items.map((i) => i.category));
-    const requiredItems = 15;
-    const isCompleted = !!session.completed_at && items.length >= requiredItems && categories.size >= 5;
-    if (isCompleted) {
-      return { state: 'completed', session };
+
+    // Check for a completed session first
+    for (const session of milestoneSessions) {
+      const items = kitchenItems.filter((item) => item.session_id === session.id);
+      const categories = new Set(items.map((i) => i.category));
+      const requiredItems = 15;
+      if (!!session.completed_at && items.length >= requiredItems && categories.size >= 5) {
+        return { state: 'completed', session };
+      }
     }
-    if (items.length > 0) {
-      return { state: 'in_progress', session };
+
+    // Then check for an in-progress session (has items)
+    for (const session of milestoneSessions) {
+      const items = kitchenItems.filter((item) => item.session_id === session.id);
+      if (items.length > 0) {
+        return { state: 'in_progress', session };
+      }
     }
+
+    // All sessions are empty — return the latest one
+    const session = milestoneSessions[milestoneSessions.length - 1];
     return { state: 'not_started', session };
   }
 
@@ -470,8 +482,13 @@ export default function DashboardPage() {
                     'Küchen-Check 1 (Tag 1-5)',
                     async () => {
                       if (!user) return;
-                      // Create new session for milestone 1 and redirect
                       setLoading(true);
+                      // Reuse existing empty session if available
+                      if (session) {
+                        setLoading(false);
+                        router.push(`/kitchen-check/?sessionId=${session.id}`);
+                        return;
+                      }
                       const { data, error } = await supabase
                         .from('kitchen_check_sessions')
                         .insert({ user_id: user.id, milestone: 1 })
@@ -523,6 +540,11 @@ export default function DashboardPage() {
                     async () => {
                       if (!user) return;
                       setLoading(true);
+                      if (session) {
+                        setLoading(false);
+                        router.push(`/kitchen-check/?sessionId=${session.id}`);
+                        return;
+                      }
                       const { data, error } = await supabase
                         .from('kitchen_check_sessions')
                         .insert({ user_id: user.id, milestone: 2 })
