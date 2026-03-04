@@ -1,5 +1,6 @@
 [build]
   base = "entueten"
+  publish = ".next"
   command = "npm run build"
 
 [[plugins]]
