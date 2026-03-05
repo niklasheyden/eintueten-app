@@ -173,20 +173,44 @@ export default function DashboardPage() {
     observations.length > 0 ? observations[observations.length - 1].observed_at : null;
 
   // Letzte Aktivitäten
+  const inProgressMilestone1Items = inProgressMilestone1
+    ? kitchenItems.filter((item) => item.session_id === (inProgressMilestone1 as any).id).length
+    : 0;
+  const inProgressMilestone2Items = inProgressMilestone2
+    ? kitchenItems.filter((item) => item.session_id === (inProgressMilestone2 as any).id).length
+    : 0;
+  const completedKC1 = completedKitchenCheckSessions.find((s: any) => s.milestone === 1);
+  const completedKC2 = completedKitchenCheckSessions.find((s: any) => s.milestone === 2);
   const recentActivities = [
-    completedKitchenCheckSessions.length > 0 &&
-      lastCompletedCheckDate && {
-        type: 'kitchen',
-        title: 'Küchen-Check abgeschlossen',
-        desc: `${kitchenItems.length} Lebensmittel dokumentiert`,
-        date: lastCompletedCheckDate,
-      },
-    inProgressCheck && inProgressSession && {
+    completedKC1 && {
+      type: 'kitchen',
+      title: 'Küchen-Check 1 abgeschlossen',
+      desc: `${kitchenItems.filter((i) => i.session_id === completedKC1.id).length} Lebensmittel dokumentiert`,
+      date: completedKC1.completed_at,
+    },
+    completedKC2 && {
+      type: 'kitchen',
+      title: 'Küchen-Check 2 abgeschlossen',
+      desc: `${kitchenItems.filter((i) => i.session_id === completedKC2.id).length} Lebensmittel dokumentiert`,
+      date: completedKC2.completed_at,
+    },
+    inProgressMilestone1 && {
       type: 'kitchen-inprogress',
-      title: 'Küchen-Check in Bearbeitung',
-      desc: `${inProgressCount}/15 Einträge`,
-      date: kitchenItems.length > 0 ? kitchenItems[kitchenItems.length - 1].added_at : null,
-      action: () => router.push(`/kitchen-check/?sessionId=${(inProgressSession as any).id}`),
+      title: 'Küchen-Check 1 in Bearbeitung',
+      desc: `${inProgressMilestone1Items}/15 Einträge`,
+      date: kitchenItems.filter((item) => item.session_id === (inProgressMilestone1 as any).id).length > 0
+        ? kitchenItems.filter((item) => item.session_id === (inProgressMilestone1 as any).id).slice(-1)[0]?.added_at
+        : null,
+      action: () => router.push(`/kitchen-check/?sessionId=${(inProgressMilestone1 as any).id}`),
+    },
+    inProgressMilestone2 && {
+      type: 'kitchen-inprogress',
+      title: 'Küchen-Check 2 in Bearbeitung',
+      desc: `${inProgressMilestone2Items}/15 Einträge`,
+      date: kitchenItems.filter((item) => item.session_id === (inProgressMilestone2 as any).id).length > 0
+        ? kitchenItems.filter((item) => item.session_id === (inProgressMilestone2 as any).id).slice(-1)[0]?.added_at
+        : null,
+      action: () => router.push(`/kitchen-check/?sessionId=${(inProgressMilestone2 as any).id}`),
     },
     challengeProgress.length > 0 && {
       type: 'challenge',
@@ -440,8 +464,8 @@ export default function DashboardPage() {
 
             <Card className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Lebensmittel insgesamt</h3>
-              <p className="text-3xl font-bold text-purple-600">{kitchenItems.length}</p>
-              <p className="text-sm text-gray-600">Alle Einträge</p>
+              <p className="text-3xl font-bold text-purple-600">{firstSessionItems.length + secondSessionItems.length}</p>
+              <p className="text-sm text-gray-600">Küchen-Check 1: {firstSessionItems.length} · Küchen-Check 2: {secondSessionItems.length}</p>
             </Card>
           </div>
 
